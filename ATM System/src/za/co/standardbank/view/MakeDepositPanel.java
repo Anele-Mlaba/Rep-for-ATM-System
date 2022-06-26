@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import za.co.standardbank.main.Main;
-import za.co.standardbank.control.Logic;
+import za.co.standardbank.control.DepositController;
 import za.co.standardbank.model.Professional;
 import za.co.standardbank.model.StudentAchiever;
 
@@ -163,22 +163,18 @@ public class MakeDepositPanel extends JPanel {
 				{
 					// just to make sure the number is an integer before proceeding
 					Integer.parseInt(amountTextField.getText().trim());
-					
+					System.out.print(amountTextField.getText());
 					setAmount();
 					setAccount();
 					
-					boolean completed = Logic.makeDeposit(amount, account);	
-					
-					Logic.collect();  // updates the file after the deposit has been made
-					//Logic.populate(Logic.fileName);
-					
-					
+					boolean completed = DepositController.makeDeposit(amount, account);	
+						
 					//---make sure an appropriate message is displayed-----------------------------start---------
 					if(completed)
 					{
 						if(account.equals("Professional"))
 						{
-							Professional professional =  (Professional)Logic.customer.getAccounts().get(0);
+							Professional professional =  (Professional)Main.customer.getAccounts().get(0);
 							String message = "Deposit Successful\n new Balance is R"+professional.getBalance();
 							JOptionPane.showMessageDialog(Main.frame,message);
 							setError("");
@@ -186,7 +182,7 @@ public class MakeDepositPanel extends JPanel {
 						}
 						else if(account.equals("Student Achiever"))
 						{
-							StudentAchiever studentAchiever =  (StudentAchiever)Logic.customer.getAccounts().get(1);
+							StudentAchiever studentAchiever =  (StudentAchiever)Main.customer.getAccounts().get(1);
 							String message = "Deposit Successful\nnew Balance is R"+studentAchiever.getBalance();
 							JOptionPane.showMessageDialog(Main.frame,message);
 							setError("");
@@ -195,6 +191,7 @@ public class MakeDepositPanel extends JPanel {
 					}				
 					else// in case the user did not choose an account
 					{
+						System.out.print(account);
 						setError("Make sure you choose an account!");
 					}
 					//--------------------------------------------------------------------------------end-------------				

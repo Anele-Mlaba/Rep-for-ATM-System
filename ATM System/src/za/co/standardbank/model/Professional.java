@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class Professional extends Account {
-	public Professional(String accountName, String accountNo, int balance, 
+	public Professional(String accountName, String accountNo, float balance, 
 			ArrayList<Transaction> transactions)
 	{
 		super(accountName, accountNo, balance, 

@@ -93,11 +93,11 @@ public class Populate {
 		}
 		
 		String profName = data.pollFirst();
-		int profBalance = Integer.parseInt(data.pollFirst());
+		float profBalance = Float.parseFloat(data.pollFirst());
 		String profAccountNo = data.pollFirst();
 		
 		String stdName = data.pollFirst();
-		int stdBalance = Integer.parseInt(data.pollFirst());
+		float stdBalance = Float.parseFloat(data.pollFirst());
 		String stdAccountNo = data.pollFirst();
 		
 		accounts.add(new Professional(profName, profAccountNo, profBalance, profTrans));

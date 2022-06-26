@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import za.co.standardbank.control.Logic;
+import za.co.standardbank.main.Main;
 import za.co.standardbank.model.Account;
 import za.co.standardbank.model.PersonalInfo;
 import za.co.standardbank.model.Professional;
@@ -18,12 +18,12 @@ public class Collect {
 	
 	public static void pin()
 	{
-		data.add(Logic.customer.getPin());
+		data.add(Main.customer.getPin());
 	}
 	
 	public static void personalInfo()
 	{
-		PersonalInfo personalInfo  = Logic.customer.getPersonalInfo();
+		PersonalInfo personalInfo  = Main.customer.getPersonalInfo();
 		data.add(personalInfo.getId());
 		data.add(personalInfo.getName());
 		data.add(personalInfo.getSurname());
@@ -36,7 +36,7 @@ public class Collect {
 	
 	public static void transactions()
 	{
-		ArrayList<? super Account> accounts = Logic.customer.getAccounts();
+		ArrayList<? super Account> accounts = Main.customer.getAccounts();
 		for(Transaction x: ((Professional)accounts.get(0)).getTransactions())
 		{
 			data.add("Professional,"+x.toString());
@@ -50,7 +50,7 @@ public class Collect {
 	
 	public static void accounts()
 	{
-		ArrayList<? super Account> accounts = Logic.customer.getAccounts();
+		ArrayList<? super Account> accounts = Main.customer.getAccounts();
 		data.add(((Professional)accounts.get(0)).getAccountName());
 		data.add(((Professional)accounts.get(0)).getBalance()+"");
 		data.add(((Professional)accounts.get(0)).getAccountNo());
@@ -61,7 +61,7 @@ public class Collect {
 	
 	public static void writeToFile()
 	{
-		try (FileWriter myWriter = new FileWriter(Logic.fileName)) {
+		try (FileWriter myWriter = new FileWriter(Main.fileName)) {
 			
 			for(String x: data)
 			{

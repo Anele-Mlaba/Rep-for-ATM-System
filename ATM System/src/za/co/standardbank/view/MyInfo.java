@@ -15,7 +15,9 @@ public class MyInfo extends JPanel
 	{
 	
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
 		JButton changePinButton = new JButton("Change Pin");
+		changePinButton.addActionListener((e)->new ChangePinPanel());
 		
 		JLabel infoLabel = new JLabel();
 		infoLabel.setText("user infor here!");

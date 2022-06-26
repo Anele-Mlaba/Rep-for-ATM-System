@@ -1,15 +1,13 @@
 package za.co.standardbank.model;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Account {
 	protected String accountName;
 	protected String accountNo;
-	protected int balance;
+	protected float balance;
 	protected ArrayList<Transaction> transactions;
 	
-	public Account(String accountName, String accountNo, int balance, 
+	public Account(String accountName, String accountNo, float balance, 
 			ArrayList<Transaction> transactions)
 	{
 		this.accountName = accountName;
@@ -29,6 +27,11 @@ public class Account {
 		return copy;
 	}
 	
+	public void setTransactions(ArrayList<Transaction> transactions)
+	{
+		this.transactions = transactions;
+	}
+	
 	public String getAccountName()
 	{
 		return accountName;
@@ -39,28 +42,23 @@ public class Account {
 		return accountNo;
 	}
 	
-	public int getBalance()
+	public float getBalance()
 	{
 		return balance;
 	}
 	
-	public boolean makeDeposit(int amount)
+	public void setBalance(float balance)
 	{
-		balance+=amount;
-		try {
-			transactions.add(new Transaction(new SimpleDateFormat("mm/dd/yyyy").parse("01/23/2022"), "Deposit", "+"+amount));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return true;
+		this.balance = balance;
 	}
+	
 	public boolean makeTransfer(int amount)
 	{
 		
 		return true;
 	}
 	
+
 	public String toString()
 	{
 		return accountName+" "+accountNo+" "+balance+"\n";

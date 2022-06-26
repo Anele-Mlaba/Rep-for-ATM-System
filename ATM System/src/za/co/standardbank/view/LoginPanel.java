@@ -1,7 +1,7 @@
 package za.co.standardbank.view;
 
 import za.co.standardbank.main.Main;
-import za.co.standardbank.control.Logic;
+import za.co.standardbank.control.LoginController;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -148,7 +148,7 @@ public class LoginPanel extends JPanel {
 			 * if the login method returns true
 			 * then take the user to the main menu
 			 */
-			if(Logic.login(id, pin))
+			if(LoginController.login(id, pin))
 			{
 				new MainMenuPanel();
 			}

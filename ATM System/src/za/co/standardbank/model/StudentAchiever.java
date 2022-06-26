@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class StudentAchiever extends Account{
-	public StudentAchiever(String accountName, String accountNo, int balance, 
+	public StudentAchiever(String accountName, String accountNo, float balance, 
 			ArrayList<Transaction> transactions)
 	{
 		super(accountName, accountNo, balance, 

@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import za.co.standardbank.main.Main;
-import za.co.standardbank.control.Logic;
+
 
 
 //this class is responsible for the main menu of the system
