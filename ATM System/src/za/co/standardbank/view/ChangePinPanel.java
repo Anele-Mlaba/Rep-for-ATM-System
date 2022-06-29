@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import za.co.standardbank.control.ChangePinController;
@@ -19,19 +20,22 @@ import za.co.standardbank.view.MakeDepositPanel.depositButtonAction;
 
 public class ChangePinPanel extends JPanel {
 	JLabel errorLabel;
-	JTextField newPinTextField;
-	JTextField oldPinTextField;
+	JPasswordField newPinTextField;
+	JPasswordField oldPinTextField;
 	JLabel oldPinLabel;
 	JPanel oldPinPanel;
 	JPanel newPinPanel;
+	JPanel confirmPinPanel;
 	JPanel saveButtonPanel;
 	JPanel errorPanel;
 	JLabel newPinLabel;
+	JLabel confirmPinLabel;
 	JButton saveButton;
 	JPanel leftUp;
 	JPanel rightUp;
 	JPanel leftDown;
 	JPanel rightDown;
+	JPasswordField confirmPinField;
 
 	public ChangePinPanel()
 	{
@@ -41,20 +45,29 @@ public class ChangePinPanel extends JPanel {
 		//creating panels that are going to be visible in this panel---------- start------
 		 oldPinPanel = new JPanel();
 		 newPinPanel = new JPanel();
+		 confirmPinPanel = new JPanel();
 		 saveButtonPanel = new JPanel();
 		
 		oldPinPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+		confirmPinPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
 		newPinPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
 		saveButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
 		//--------------------------------------------------------------------- end-----
 		
 		// creating and populating the contents of this page------------------- start------
 		oldPinLabel = new JLabel("Old Pin");
-		oldPinTextField = new JTextField(13);
+		oldPinTextField = new JPasswordField(13);
 		
 		newPinLabel = new JLabel("new Pin");
 		
-		newPinTextField = new JTextField(13);
+		newPinTextField = new JPasswordField(13);
+		
+		confirmPinLabel = new JLabel("Confirm Pin");
+		
+		confirmPinField = new JPasswordField(13);
+		
+		
+		
 				
 		saveButton = new JButton("Save");
 		saveButton.addActionListener(new ChangePinAction());
@@ -66,6 +79,11 @@ public class ChangePinPanel extends JPanel {
 		JPanel leftDown = new JPanel();
 		JPanel rightDown = new JPanel();
 		
+		JPanel leftConfirm = new JPanel();
+		JPanel rightConfirm = new JPanel();
+		
+		leftConfirm.add(confirmPinLabel);
+		rightConfirm.add(confirmPinField);
 		leftUp.add(oldPinLabel);
 		rightUp.add(oldPinTextField);
 		leftDown.add(newPinLabel);
@@ -75,6 +93,9 @@ public class ChangePinPanel extends JPanel {
 		oldPinPanel.add(rightUp);
 		newPinPanel.add(leftDown);
 		newPinPanel.add(rightDown);
+		
+		confirmPinPanel.add(leftConfirm);
+		confirmPinPanel.add(rightConfirm);
 		saveButtonPanel.add(saveButton);
 		//----------------------------------------------------------------------end---
 		
@@ -94,11 +115,11 @@ public class ChangePinPanel extends JPanel {
 		
 		add(oldPinPanel);
 		add(newPinPanel);
+		add(confirmPinPanel);
 		add(saveButtonPanel);
 		
 		
 		//these panels are only added to center the contents of this panel
-		add(new JPanel());
 		add(new JPanel());
 		add(new JPanel());
 		//--------------adding all the panels to this panel------ end----------------------------
@@ -112,15 +133,14 @@ public class ChangePinPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			errorLabel.setText(ChangePinController.changePin(oldPinTextField.getText(), newPinTextField.getText()));
-			System.out.println(errorLabel.getText());
+			errorLabel.setText(ChangePinController.changePin(oldPinTextField.getText(), newPinTextField.getText(), confirmPinField.getText()));
 			if(errorLabel.getText().length() == 0)
 			{
-				JOptionPane.showMessageDialog(Main.frame,"pin successfuly changed!");
-				oldPinTextField.setText("");
-				newPinTextField.setText("");
+				JOptionPane.showMessageDialog(Main.frame,"pin successfuly changed!");			
 			}
-				
+			oldPinTextField.setText("");
+			newPinTextField.setText("");
+			confirmPinField.setText("");
 			repaint();
 		}
 		

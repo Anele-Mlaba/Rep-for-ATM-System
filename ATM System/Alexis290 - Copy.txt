@@ -1,0 +1,45 @@
+54321
+9506074800084
+Alexis
+Shumba
+Female
+01/06/1995
+shumbalexis2@gmail.com
+0633286166
+Free State, Petrus Steyn, 227 Oranje St
+Professional,Deposit,01/17/2022,+98
+Professional,Deposit,01/17/2022,+50
+Professional,Deposit,01/17/2022,+50
+Professional,Deposit,2022/Jun/28 20:06,50
+Professional,Deposit,01/23/2022,+1000
+Professional, transfer to student achiever from Professional,01/04/2021,+3000
+Professional,Deposit,01/17/2022,+50
+Professional,Deposit,01/17/2022,+50
+Professional,Deposit,01/23/2022,+50
+Professional,Deposit,01/23/2022,+50
+Professional,Deposit,01/17/2022,+50
+Professional,Deposit,01/17/2022,+50
+Professional,Deposit,01/23/2022,+50
+Professional,Deposit,01/23/2022,+50
+Professional,Deposit,01/23/2022,+50
+Professional,Deposit,01/23/2022,+102
+Professional,Deposit,01/17/2022,+50
+Professional,Deposit,01/17/2022,+50
+Professional, transfer from student achiever to Professional,01/02/2021,-5673
+Professional, Ubereats purchase,01/03/2021,-150
+Professional,Deposit,01/23/2022,+50
+Student Achiever, transfer to student achiever from Professional,01/04/2021,+3000
+Student Achiever, Ubereats purchase,01/03/2021,-150
+Student Achiever,Deposit,01/23/2022,+60
+Student Achiever,Deposit,01/23/2022,+50
+Student Achiever,Deposit,01/17/2022,+70
+Student Achiever,Deposit,01/23/2022,+1000
+Student Achiever, transfer from student achiever to Professional,01/02/2021,-5673
+Student Achiever,Deposit,2022/Jun/28 20:06,5000
+*
+professional
+3290.0
+101023456067
+Student Achiever
+8532.0
+101023499375

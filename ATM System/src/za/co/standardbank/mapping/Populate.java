@@ -58,16 +58,10 @@ public class Populate {
 			
 			String accountName = temp[0];
 			String type = temp[1];
+			String date = temp[2];
 			String amount = temp[3];
 			
-			Date dateOfTrans = new Date();
-			try {
-				dateOfTrans = new SimpleDateFormat("mm/dd/yyyy").parse(temp[2]);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			transactions.put(new Transaction(dateOfTrans, type, amount), accountName);			
+			transactions.put(new Transaction(date, type, amount), accountName);			
 			trans = data.pollFirst();
 		}
 	}

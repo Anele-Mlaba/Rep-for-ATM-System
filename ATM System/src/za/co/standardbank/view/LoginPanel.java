@@ -77,6 +77,7 @@ public class LoginPanel extends JPanel {
 		//------------------------------------------------------end--------
 		
 		// making additional panels for better alignment---------start-----
+		errorPanel.add(errorLabel);
 		JPanel leftUp = new JPanel();
 		JPanel rightUp = new JPanel();
 		JPanel leftDown = new JPanel();
@@ -130,6 +131,7 @@ public class LoginPanel extends JPanel {
 	//used by login button to write errors
 	private void writeError()
 	{
+		System.out.print("here");
 		errorLabel.setText("Incorrect pin or invalid ID");
 		errorLabel.setForeground(Color.red);
 		repaint();

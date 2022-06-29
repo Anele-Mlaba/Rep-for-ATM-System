@@ -1,8 +1,8 @@
 package za.co.standardbank.control;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import za.co.standardbank.main.Main;
 import za.co.standardbank.model.Account;
@@ -12,45 +12,74 @@ import za.co.standardbank.model.Transaction;
 
 public class DepositController {
 	
-	public static boolean makeDeposit(int amount, String account)
+	public static String makeDeposit(String amount, String account)
 	{
-		ArrayList<? super Account> accounts = Main.customer.getAccounts();
-		
-		if(account.equals("Professional"))
-		{
-			Professional acc =  ((Professional)accounts.get(0));
-			accounts.set(0, completeDeposit(acc,amount));
+		if(amount.equals("0"))
+		{	
+			return "You can't deposit R0";
 		}
-		else if (account.equals("Student Achiever"))
+		else if(amount.contains("."))
 		{
-			StudentAchiever acc =  ((StudentAchiever)accounts.get(1));	
-			accounts.set(1, completeDeposit(acc,amount));
+			return "Make sure your amount does not contain decimals";
 		}
 		
-		Main.customer.setAccounts(accounts);
-		Main.collect();  // updates the file after the deposit has been made
-		Main.populate(Main.fileName);
-		return true;
+		else 
+		{
+
+			try
+			{
+				int parsedAmount = Integer.parseInt(amount.trim());
+
+				if(account.length() == 0)
+					return "Make sure you choose an account!";
+				
+				ArrayList<? super Account> accounts = Main.customer.getAccounts();
+				
+				if(account.equals("Professional"))
+				{
+					Professional acc =  ((Professional)accounts.get(0));
+					accounts.set(0, completeDeposit(acc,parsedAmount));
+				}
+				else if (account.equals("Student Achiever"))
+				{
+					StudentAchiever acc =  ((StudentAchiever)accounts.get(1));	
+					accounts.set(1, completeDeposit(acc,parsedAmount));
+				}
+				
+				Main.customer.setAccounts(accounts);
+				Main.collect();  // updates the file after the deposit has been made
+				Main.populate(Main.fileName);
+				
+				return "";
+						
+			}
+			
+			catch(NumberFormatException f)
+			{
+				if(amount.trim().equals(""))
+				{
+					return "Amount field can't be empty!";
+				}
+				else
+				{
+					return "Make sure your amount is numeric";
+				}					
+			}
+		}		
+		
+		
 	}
 	
 	private  static <T extends Account> T  completeDeposit(T acc, int amount)
 	{
-		 acc.setBalance(acc.getBalance()+amount);
-		try
-		{
-			ArrayList<Transaction> transactions = acc.getTransactions();
-			transactions.add(new Transaction(new SimpleDateFormat("mm/dd/yyyy").parse("06/17/2022"), "Deposit", "+"+amount));
-			acc.setTransactions(transactions);
+		acc.setBalance(acc.getBalance()+amount);	
+		ArrayList<Transaction> transactions = acc.getTransactions();
+		String date = new SimpleDateFormat("yyyy/MMM/dd HH:MM").format(Calendar.getInstance().getTime());
+		transactions.add(new Transaction(date, "Deposit","+"+amount));
+		acc.setTransactions(transactions);			
 			
-			
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 		return acc;
-	}
-	
-	
+	}	
 }
 
 

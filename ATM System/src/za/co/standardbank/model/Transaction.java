@@ -1,13 +1,12 @@
 package za.co.standardbank.model;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 public class Transaction {
-	private Date date;
+	private String date;
 	private String type;
 	private String amount;
 	
-	public Transaction(Date date, String type, String amount)
+	public Transaction(String date, String type, String amount)
 	{
 		this.date = date;
 		this.type = type;
@@ -21,7 +20,6 @@ public class Transaction {
 		
 	public String toString()
 	{
-		SimpleDateFormat dateFormat= new SimpleDateFormat("MM/dd/yyyy");
-		return type+","+dateFormat.format(date)+","+amount;
+		return type+","+date+","+amount;
 	}
 }

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import za.co.standardbank.main.Main;
+import za.co.standardbank.control.ChangePinController;
 import za.co.standardbank.control.DepositController;
 import za.co.standardbank.model.Professional;
 import za.co.standardbank.model.StudentAchiever;
@@ -115,103 +116,31 @@ public class MakeDepositPanel extends JPanel {
 		Main.frame.drawFrame(this);	//draw this Panel to the frame
 	}
 	
-	/*
-	 * takes the amount entered by the user and assigns it to the amount variable
-	 */
-	private void setAmount()
-	{
-		amount = Integer.parseInt(amountTextField.getText().trim());
-	}
-	
-	/*
-	 * takes the account entered by the user and writes it to the account variable
-	 */
-	private void setAccount()
-	{
-		account = (String) accountComboBox.getSelectedItem();
-	}
-	
-	/*
-	 * deposit button uses this method to display errors
-	 */
-	private void setError(String errorMessage)
-	{
-		errorLabel.setForeground(Color.RED);
-		errorLabel.setText(errorMessage);
-	}
-	
 	class depositButtonAction implements ActionListener
 	{
-
-		@Override
+		@Override		
 		public void actionPerformed(ActionEvent e) 
 		{
-			if(amountTextField.getText().equals("0"))
-			{	
-				setError("You can't deposit R0");
-			}
-			else if(amountTextField.getText().contains("."))
+			errorLabel.setText(DepositController.
+					makeDeposit(amountTextField.getText(), (String)accountComboBox.getSelectedItem()));
+			errorLabel.setForeground(Color.red);
+			if(errorLabel.getText().length() == 0)
 			{
-				setError("Make sure your amount does not contain decimals");
-			}
-			
-			//when the amount entered by the user contains no decimals and not 0
-			else 
-			{
-				// if the amount is an integer, the transaction will proceed
-				try
+				if(((String)accountComboBox.getSelectedItem()).equals("Professional"))
 				{
-					// just to make sure the number is an integer before proceeding
-					Integer.parseInt(amountTextField.getText().trim());
-					System.out.print(amountTextField.getText());
-					setAmount();
-					setAccount();
-					
-					boolean completed = DepositController.makeDeposit(amount, account);	
-						
-					//---make sure an appropriate message is displayed-----------------------------start---------
-					if(completed)
-					{
-						if(account.equals("Professional"))
-						{
-							Professional professional =  (Professional)Main.customer.getAccounts().get(0);
-							String message = "Deposit Successful\n new Balance is R"+professional.getBalance();
-							JOptionPane.showMessageDialog(Main.frame,message);
-							setError("");
-							amountTextField.setText("");
-						}
-						else if(account.equals("Student Achiever"))
-						{
-							StudentAchiever studentAchiever =  (StudentAchiever)Main.customer.getAccounts().get(1);
-							String message = "Deposit Successful\nnew Balance is R"+studentAchiever.getBalance();
-							JOptionPane.showMessageDialog(Main.frame,message);
-							setError("");
-							amountTextField.setText("");
-						}
-					}				
-					else// in case the user did not choose an account
-					{
-						System.out.print(account);
-						setError("Make sure you choose an account!");
-					}
-					//--------------------------------------------------------------------------------end-------------				
+					Professional professional =  (Professional)Main.customer.getAccounts().get(0);
+					String message = "Deposit Successful\n new Balance is R"+professional.getBalance();
+					JOptionPane.showMessageDialog(Main.frame,message);					
 				}
-				
-				//if the amount is not a number, show the user these errors
-				catch(NumberFormatException f)
+				else if(((String)accountComboBox.getSelectedItem()).equals("Student Achiever"))
 				{
-					if(amountTextField.getText().trim().equals(""))
-					{
-						setError("Amount field can't be empty!");
-						amountTextField.setText("");
-					}
-					else
-					{
-						setError("Make sure your amount is numeric");
-						amountTextField.setText("");
-					}					
+					StudentAchiever studentAchiever =  (StudentAchiever)Main.customer.getAccounts().get(1);
+					String message = "Deposit Successful\nnew Balance is R"+studentAchiever.getBalance();
+					JOptionPane.showMessageDialog(Main.frame,message);					
 				}
-			}			
+			}	
+			amountTextField.setText("");
+			repaint();				
 		}		
 	}	
 }
