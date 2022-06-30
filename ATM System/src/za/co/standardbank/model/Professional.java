@@ -1,6 +1,5 @@
 package za.co.standardbank.model;
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 public class Professional extends Account {
 	public Professional(String accountName, String accountNo, float balance, 

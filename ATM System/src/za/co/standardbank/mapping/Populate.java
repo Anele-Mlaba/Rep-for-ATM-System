@@ -1,4 +1,6 @@
 package za.co.standardbank.mapping;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -100,15 +102,33 @@ public class Populate {
 		return accounts;
 	}
 	
-	public Customer customer()
+	public void customer()
 	{
-		return new Customer(pin(), personalInfo(), accounts());
+		new Customer(pin(), personalInfo(), accounts());
 	}
 	
 	public String pin()
 	{
 			
 		return data.pollFirst();
+	}
+	
+	public static boolean populate(String fileName)
+	{	
+		File file = new File(fileName.trim());
+		Scanner scan;
+		try
+		{
+			scan = new Scanner(file);
+			Populate populate = new Populate();
+			populate.readFromFile(scan);
+			populate.customer();
+			return true;		
+		} 
+		catch (FileNotFoundException e)
+		{
+			return false;
+		}
 	}
 		
 }

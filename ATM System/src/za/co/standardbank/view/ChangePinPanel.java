@@ -15,7 +15,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import za.co.standardbank.control.ChangePinController;
-import za.co.standardbank.main.Main;
 import za.co.standardbank.view.MakeDepositPanel.depositButtonAction;
 
 public class ChangePinPanel extends JPanel {
@@ -108,7 +107,7 @@ public class ChangePinPanel extends JPanel {
 		//---------------------------------------------------------------end---------------
 		
 		//--------------adding all the panels to this panel------ start--------------------------
-		add(Main.frame.getMainMenuButtonPanel());
+		add(MyFrame.frame.getMainMenuButtonPanel());
 		add(new JPanel()); // added to center the contents of this panel
 		add(errorPanel);
 		
@@ -125,7 +124,7 @@ public class ChangePinPanel extends JPanel {
 		//--------------adding all the panels to this panel------ end----------------------------
 		errorLabel.setForeground(Color.RED);
 		
-		Main.frame.drawFrame(this);
+		MyFrame.frame.drawFrame(this);
 	}
 	
 	private class ChangePinAction implements ActionListener
@@ -136,7 +135,7 @@ public class ChangePinPanel extends JPanel {
 			errorLabel.setText(ChangePinController.changePin(oldPinTextField.getText(), newPinTextField.getText(), confirmPinField.getText()));
 			if(errorLabel.getText().length() == 0)
 			{
-				JOptionPane.showMessageDialog(Main.frame,"pin successfuly changed!");			
+				JOptionPane.showMessageDialog(MyFrame.frame,"pin successfuly changed!");			
 			}
 			oldPinTextField.setText("");
 			newPinTextField.setText("");

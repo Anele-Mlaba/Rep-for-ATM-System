@@ -7,8 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import za.co.standardbank.main.Main;
-
 
 //this frame contains the whole system
 public class MyFrame extends JFrame
@@ -16,6 +14,7 @@ public class MyFrame extends JFrame
 	//dimensions of the whole frame
 	private final int WIDTH_OF_FRAME = 400;
 	private final int LENGTH_OF_FRAME = 400;
+	public static MyFrame frame;
 	
 	public MyFrame()
 	{
@@ -28,7 +27,6 @@ public class MyFrame extends JFrame
 		this.setVisible(true);
 		
 	}
-	
 	
 	/*
 	 *  this method makes sure that when this panel is created, all of it's contents gets painted to the
@@ -57,4 +55,9 @@ public class MyFrame extends JFrame
 		
 		return mainMenuButtonPanel;
 	}
+	
+	public static void main(String [] args) 
+	{
+		frame = new MyFrame();
+	}	
 }

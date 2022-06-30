@@ -11,8 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import za.co.standardbank.main.Main;
 import za.co.standardbank.control.ChangePinController;
 import za.co.standardbank.control.DepositController;
 import za.co.standardbank.model.Professional;
@@ -95,7 +93,7 @@ public class MakeDepositPanel extends JPanel {
 		//---------------------------------------------------------------end---------------
 		
 		//--------------adding all the panels to this panel------ start--------------------------
-		add(Main.frame.getMainMenuButtonPanel());
+		add(MyFrame.frame.getMainMenuButtonPanel());
 		add(new JPanel()); // added to center the contents of this panel
 		add(errorPanel);
 		
@@ -113,7 +111,7 @@ public class MakeDepositPanel extends JPanel {
 		
 		
 		
-		Main.frame.drawFrame(this);	//draw this Panel to the frame
+		MyFrame.frame.drawFrame(this);	//draw this Panel to the frame
 	}
 	
 	class depositButtonAction implements ActionListener
@@ -128,15 +126,13 @@ public class MakeDepositPanel extends JPanel {
 			{
 				if(((String)accountComboBox.getSelectedItem()).equals("Professional"))
 				{
-					Professional professional =  (Professional)Main.customer.getAccounts().get(0);
-					String message = "Deposit Successful\n new Balance is R"+professional.getBalance();
-					JOptionPane.showMessageDialog(Main.frame,message);					
+					String message = "Deposit Successful\n new Balance is R";
+					JOptionPane.showMessageDialog(MyFrame.frame,message);					
 				}
 				else if(((String)accountComboBox.getSelectedItem()).equals("Student Achiever"))
 				{
-					StudentAchiever studentAchiever =  (StudentAchiever)Main.customer.getAccounts().get(1);
-					String message = "Deposit Successful\nnew Balance is R"+studentAchiever.getBalance();
-					JOptionPane.showMessageDialog(Main.frame,message);					
+					String message = "Deposit Successful\nnew Balance is R";
+					JOptionPane.showMessageDialog(MyFrame.frame,message);					
 				}
 			}	
 			amountTextField.setText("");

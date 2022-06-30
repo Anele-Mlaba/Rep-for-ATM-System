@@ -1,4 +1,4 @@
-12345
+21800
 9506074800084
 Alexis
 Shumba
@@ -7,18 +7,19 @@ Female
 shumbalexis2@gmail.com
 0633286166
 Free State, Petrus Steyn, 227 Oranje St
-Professional, transfer to student achiever from Professional ,2021/Apr/21 19:00,+3000
 Professional, Deposit,2022/Jun/28 20:06,+50
+Professional, Deposit,2022/Jun/28 20:06,+70
+Professional, Ubereats purchase,2021/01/03 17:43,-150
+Professional, transfer to student achiever from Professional ,2021/Apr/21 19:00,+3000
+Professional,Deposit,2022/Jun/30 12:06,+50
 Professional, Deposit,2022/Jun/28 20:06,+50
 Student Achiever, transfer from student achiever to Professional ,2021/Feb/20 19:20,-5673
-Professional, Ubereats purchase,2021/01/03 17:43,-150
-Professional, Deposit,2022/Jun/28 20:06,+70
 Student Achiever, transfer to student achiever from Professional,2021/Mar/01 12:04,+3000
 Student Achiever, transfer from student achiever to Professional,2022/Jan/01 08:42,-5673
 Student Achiever, Ubereats purchase,2021/Nov/13 13:57,-150
 *
 Professional
-2510.7
+2560.7
 101023456067
 Student Achiever
 3340.5

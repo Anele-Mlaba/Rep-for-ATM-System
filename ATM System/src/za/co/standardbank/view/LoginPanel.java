@@ -1,6 +1,5 @@
 package za.co.standardbank.view;
 
-import za.co.standardbank.main.Main;
 import za.co.standardbank.control.LoginController;
 
 import java.awt.Color;
@@ -42,7 +41,7 @@ public class LoginPanel extends JPanel {
 	public LoginPanel(Boolean LoggedOut)
 	{	
 		initialize();
-		Main.frame.drawFrame(this);
+		MyFrame.frame.drawFrame(this);
 	}
 	
 	// initializes the panel

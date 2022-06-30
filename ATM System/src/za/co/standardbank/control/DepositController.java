@@ -3,9 +3,10 @@ package za.co.standardbank.control;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import za.co.standardbank.main.Main;
+import za.co.standardbank.mapping.Collect;
+import za.co.standardbank.mapping.Populate;
 import za.co.standardbank.model.Account;
+import za.co.standardbank.model.Customer;
 import za.co.standardbank.model.Professional;
 import za.co.standardbank.model.StudentAchiever;
 import za.co.standardbank.model.Transaction;
@@ -33,7 +34,7 @@ public class DepositController {
 				if(account.length() == 0)
 					return "Make sure you choose an account!";
 				
-				ArrayList<? super Account> accounts = Main.customer.getAccounts();
+				ArrayList<? super Account> accounts = Customer.customer.getAccounts();
 				
 				if(account.equals("Professional"))
 				{
@@ -46,9 +47,9 @@ public class DepositController {
 					accounts.set(1, completeDeposit(acc,parsedAmount));
 				}
 				
-				Main.customer.setAccounts(accounts);
-				Main.collect();  // updates the file after the deposit has been made
-				Main.populate(Main.fileName);
+				Customer.customer.setAccounts(accounts);
+				Collect.collect();  // updates the file after the deposit has been made
+				Populate.populate(Customer.fileName);
 				
 				return "";
 						
@@ -79,7 +80,8 @@ public class DepositController {
 		acc.setTransactions(transactions);			
 			
 		return acc;
-	}	
+	}
+	
 }
 
 

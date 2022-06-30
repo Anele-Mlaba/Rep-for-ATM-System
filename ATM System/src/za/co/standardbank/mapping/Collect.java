@@ -5,8 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import za.co.standardbank.main.Main;
 import za.co.standardbank.model.Account;
+import za.co.standardbank.model.Customer;
 import za.co.standardbank.model.PersonalInfo;
 import za.co.standardbank.model.Professional;
 import za.co.standardbank.model.StudentAchiever;
@@ -16,14 +16,15 @@ public class Collect {
 	private static LinkedList<String> data = new LinkedList<String>();
 	private static SimpleDateFormat dateFormat= new SimpleDateFormat("MM/dd/yyyy");
 	
+	
 	public static void pin()
 	{
-		data.add(Main.customer.getPin());
+		data.add(Customer.customer.getPin());
 	}
 	
 	public static void personalInfo()
 	{
-		PersonalInfo personalInfo  = Main.customer.getPersonalInfo();
+		PersonalInfo personalInfo  = Customer.customer.getPersonalInfo();
 		data.add(personalInfo.getId());
 		data.add(personalInfo.getName());
 		data.add(personalInfo.getSurname());
@@ -36,7 +37,7 @@ public class Collect {
 	
 	public static void transactions()
 	{
-		ArrayList<? super Account> accounts = Main.customer.getAccounts();
+		ArrayList<? super Account> accounts = Customer.customer.getAccounts();
 		for(Transaction x: ((Professional)accounts.get(0)).getTransactions())
 		{
 			data.add("Professional,"+x.toString());
@@ -50,7 +51,7 @@ public class Collect {
 	
 	public static void accounts()
 	{
-		ArrayList<? super Account> accounts = Main.customer.getAccounts();
+		ArrayList<? super Account> accounts = Customer.customer.getAccounts();
 		data.add(((Professional)accounts.get(0)).getAccountName());
 		data.add(((Professional)accounts.get(0)).getBalance()+"");
 		data.add(((Professional)accounts.get(0)).getAccountNo());
@@ -61,7 +62,7 @@ public class Collect {
 	
 	public static void writeToFile()
 	{
-		try (FileWriter myWriter = new FileWriter(Main.fileName)) {
+		try (FileWriter myWriter = new FileWriter(Customer.fileName)) {
 			
 			for(String x: data)
 			{
@@ -74,6 +75,18 @@ public class Collect {
 		}
 		data.clear();
 	}
+	
+	
+	public static boolean collect()
+	{
+		Collect.pin();
+		Collect.personalInfo();
+		Collect.transactions();
+		Collect.accounts();
+		Collect.writeToFile();
+		return true;
+	}
+	
 	public static void test()
 	{
 		for(String x: data)

@@ -1,6 +1,5 @@
 package za.co.standardbank.model;
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 public class StudentAchiever extends Account{
 	public StudentAchiever(String accountName, String accountNo, float balance, 

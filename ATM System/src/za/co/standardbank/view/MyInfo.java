@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import za.co.standardbank.main.Main;
 
 public class MyInfo extends JPanel
 {
@@ -29,11 +28,11 @@ public class MyInfo extends JPanel
 		JPanel ButtonPanel = new JPanel();
 		ButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
 		ButtonPanel.add(changePinButton);
-		add(Main.frame.getMainMenuButtonPanel());
+		add(MyFrame.frame.getMainMenuButtonPanel());
 		add(infoLabelPanel);
 		add(ButtonPanel);
 		
-		Main.frame.drawFrame(this);
+		MyFrame.frame.drawFrame(this);
 		
 	}
 }

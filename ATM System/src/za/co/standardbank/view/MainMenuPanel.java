@@ -1,15 +1,12 @@
 package za.co.standardbank.view;
 import java.awt.BorderLayout;
-import java.awt.Color;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import za.co.standardbank.main.Main;
 
 
 
@@ -69,7 +66,7 @@ public class MainMenuPanel extends JPanel {
 		//------END ------------------------------------------------------
 		
 		//draw this Panel to the frame
-		Main.frame.drawFrame(this);	
+		MyFrame.frame.drawFrame(this);	
 	}
 	
 	

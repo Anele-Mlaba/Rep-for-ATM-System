@@ -1,12 +1,13 @@
 
 package za.co.standardbank.control;
-import za.co.standardbank.main.Main;
+import za.co.standardbank.mapping.Collect;
+import za.co.standardbank.model.Customer;
 
 public class ChangePinController {
 
 	public static String changePin(String oldPin, String newPin, String confirmPin) {
 		String numbers = "0123456789";
-		if(Main.customer.getPin().equals(oldPin))
+		if(Customer.customer.getPin().equals(oldPin))
 		{
 			if(!oldPin.equals(newPin))
 			{		
@@ -62,8 +63,8 @@ public class ChangePinController {
 						{
 							if(newPin.equals(confirmPin))
 							{
-								Main.customer.setPin(newPin);
-								Main.collect();
+								Customer.customer.setPin(newPin);
+								Collect.collect();
 								return "";
 							}
 							else return "confirmation pin does not match your new pin";
