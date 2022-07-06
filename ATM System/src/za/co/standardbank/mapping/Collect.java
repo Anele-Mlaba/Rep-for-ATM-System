@@ -1,7 +1,9 @@
 package za.co.standardbank.mapping;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -13,26 +15,26 @@ import za.co.standardbank.model.StudentAchiever;
 import za.co.standardbank.model.Transaction;
 
 public class Collect {
-	private static LinkedList<String> data = new LinkedList<String>();
-	private static SimpleDateFormat dateFormat= new SimpleDateFormat("MM/dd/yyyy");
+	private static LinkedList<String> CustomerDataFromModels = new LinkedList<String>();
+	private static SimpleDateFormat DateOfBirth= new SimpleDateFormat("MM/dd/yyyy");
 	
 	
 	public static void pin()
 	{
-		data.add(Customer.customer.getPin());
+		CustomerDataFromModels.add(Customer.customer.getPin());
 	}
 	
 	public static void personalInfo()
 	{
 		PersonalInfo personalInfo  = Customer.customer.getPersonalInfo();
-		data.add(personalInfo.getId());
-		data.add(personalInfo.getName());
-		data.add(personalInfo.getSurname());
-		data.add(personalInfo.getGender());
-		data.add(dateFormat.format(personalInfo.getDOB()));
-		data.add(personalInfo.getEmail());
-		data.add(personalInfo.getPhoneNumber());
-		data.add(personalInfo.getAddress());
+		CustomerDataFromModels.add(personalInfo.getId());
+		CustomerDataFromModels.add(personalInfo.getName());
+		CustomerDataFromModels.add(personalInfo.getSurname());
+		CustomerDataFromModels.add(personalInfo.getGender());
+		CustomerDataFromModels.add(DateOfBirth.format(personalInfo.getDOB()));
+		CustomerDataFromModels.add(personalInfo.getEmail());
+		CustomerDataFromModels.add(personalInfo.getPhoneNumber());
+		CustomerDataFromModels.add(personalInfo.getAddress());
 	}
 	
 	public static void transactions()
@@ -40,40 +42,40 @@ public class Collect {
 		ArrayList<? super Account> accounts = Customer.customer.getAccounts();
 		for(Transaction x: ((Professional)accounts.get(0)).getTransactions())
 		{
-			data.add("Professional,"+x.toString());
+			CustomerDataFromModels.add("Professional,"+x.toString());
 		}
 		for(Transaction x:  ((StudentAchiever)accounts.get(1)).getTransactions())
 		{
-			data.add("Student Achiever,"+x.toString());
+			CustomerDataFromModels.add("Student Achiever,"+x.toString());
 		}
-		data.add("*");
+		CustomerDataFromModels.add("*");
 	}
 	
 	public static void accounts()
 	{
 		ArrayList<? super Account> accounts = Customer.customer.getAccounts();
-		data.add(((Professional)accounts.get(0)).getAccountName());
-		data.add(((Professional)accounts.get(0)).getBalance()+"");
-		data.add(((Professional)accounts.get(0)).getAccountNo());
-		data.add(((StudentAchiever)accounts.get(1)).getAccountName());
-		data.add(((StudentAchiever)accounts.get(1)).getBalance()+"");
-		data.add(((StudentAchiever)accounts.get(1)).getAccountNo());
+		CustomerDataFromModels.add(((Professional)accounts.get(0)).getAccountName());
+		CustomerDataFromModels.add(((Professional)accounts.get(0)).getBalance()+"");
+		CustomerDataFromModels.add(((Professional)accounts.get(0)).getAccountNo());
+		CustomerDataFromModels.add(((StudentAchiever)accounts.get(1)).getAccountName());
+		CustomerDataFromModels.add(((StudentAchiever)accounts.get(1)).getBalance()+"");
+		CustomerDataFromModels.add(((StudentAchiever)accounts.get(1)).getAccountNo());
 	}
 	
 	public static void writeToFile()
 	{
-		try (FileWriter myWriter = new FileWriter(Customer.fileName)) {
-			
-			for(String x: data)
-			{
-				myWriter.write(x+"\n");
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		try (FileWriter writer = new FileWriter(Customer.fileName))
+		{
+			for(String x: CustomerDataFromModels)
+				writer.write(x+"\n");
+		
+		} catch (IOException e) 
+		
+		{
 			e.printStackTrace();
 		}
-		data.clear();
+		
+		CustomerDataFromModels.clear();
 	}
 	
 	
@@ -89,7 +91,7 @@ public class Collect {
 	
 	public static void test()
 	{
-		for(String x: data)
+		for(String x: CustomerDataFromModels)
 		{
 			System.out.println(x);
 		}

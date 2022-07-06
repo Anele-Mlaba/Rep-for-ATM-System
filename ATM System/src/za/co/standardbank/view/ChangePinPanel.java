@@ -107,7 +107,7 @@ public class ChangePinPanel extends JPanel {
 		//---------------------------------------------------------------end---------------
 		
 		//--------------adding all the panels to this panel------ start--------------------------
-		add(MyFrame.frame.getMainMenuButtonPanel());
+		add(MainFrame.frame.getMainMenuButtonPanel());
 		add(new JPanel()); // added to center the contents of this panel
 		add(errorPanel);
 		
@@ -124,7 +124,7 @@ public class ChangePinPanel extends JPanel {
 		//--------------adding all the panels to this panel------ end----------------------------
 		errorLabel.setForeground(Color.RED);
 		
-		MyFrame.frame.drawFrame(this);
+		MainFrame.frame.drawFrame(this);
 	}
 	
 	private class ChangePinAction implements ActionListener
@@ -135,7 +135,7 @@ public class ChangePinPanel extends JPanel {
 			errorLabel.setText(ChangePinController.changePin(oldPinTextField.getText(), newPinTextField.getText(), confirmPinField.getText()));
 			if(errorLabel.getText().length() == 0)
 			{
-				JOptionPane.showMessageDialog(MyFrame.frame,"pin successfuly changed!");			
+				JOptionPane.showMessageDialog(MainFrame.frame,"pin successfuly changed!");			
 			}
 			oldPinTextField.setText("");
 			newPinTextField.setText("");

@@ -9,14 +9,15 @@ import javax.swing.WindowConstants;
 
 
 //this frame contains the whole system
-public class MyFrame extends JFrame
+public class MainFrame extends JFrame
 {
 	//dimensions of the whole frame
-	private final int WIDTH_OF_FRAME = 400;
-	private final int LENGTH_OF_FRAME = 400;
-	public static MyFrame frame;
+	private final int WIDTH_OF_FRAME = 600;
+	private final int LENGTH_OF_FRAME = 600;
 	
-	public MyFrame()
+	public static MainFrame frame;
+	
+	public MainFrame()
 	{
 		// initializes the frame to these values
 		this.setTitle("ATM System");
@@ -56,8 +57,20 @@ public class MyFrame extends JFrame
 		return mainMenuButtonPanel;
 	}
 	
+	public JPanel getAccountsButtonPanel()
+	{
+		JButton mainMenuButton = new JButton("Accounts");
+		mainMenuButton.addActionListener((e)->new AccountsPanel());
+		
+		JPanel mainMenuButtonPanel = new JPanel();
+		mainMenuButtonPanel.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
+		mainMenuButtonPanel.add(mainMenuButton);
+		
+		return mainMenuButtonPanel;
+	}
+	
 	public static void main(String [] args) 
 	{
-		frame = new MyFrame();
+		frame = new MainFrame();
 	}	
 }

@@ -8,9 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class MyInfo extends JPanel
+public class MyInfoPanel extends JPanel
 {
-	public MyInfo()
+	public MyInfoPanel()
 	{
 	
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -28,11 +28,11 @@ public class MyInfo extends JPanel
 		JPanel ButtonPanel = new JPanel();
 		ButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
 		ButtonPanel.add(changePinButton);
-		add(MyFrame.frame.getMainMenuButtonPanel());
+		add(MainFrame.frame.getMainMenuButtonPanel());
 		add(infoLabelPanel);
 		add(ButtonPanel);
 		
-		MyFrame.frame.drawFrame(this);
+		MainFrame.frame.drawFrame(this);
 		
 	}
 }

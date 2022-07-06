@@ -1,4 +1,4 @@
-21800
+00000
 9506074800084
 Alexis
 Shumba
@@ -7,20 +7,30 @@ Female
 shumbalexis2@gmail.com
 0633286166
 Free State, Petrus Steyn, 227 Oranje St
-Professional, Deposit,2022/Jun/28 20:06,+50
-Professional, Deposit,2022/Jun/28 20:06,+70
-Professional, Ubereats purchase,2021/01/03 17:43,-150
+Professional,Deposit,2022/Jul/06 11:07,+1000
+Professional,Deposit,2022/Jul/06 11:07,+250
+Professional,Deposit,2022/Jul/06 11:07,+500
+Professional,Deposit,2022/Jul/06 18:46,+150
 Professional, transfer to student achiever from Professional ,2021/Apr/21 19:00,+3000
-Professional,Deposit,2022/Jun/30 12:06,+50
-Professional, Deposit,2022/Jun/28 20:06,+50
-Student Achiever, transfer from student achiever to Professional ,2021/Feb/20 19:20,-5673
-Student Achiever, transfer to student achiever from Professional,2021/Mar/01 12:04,+3000
-Student Achiever, transfer from student achiever to Professional,2022/Jan/01 08:42,-5673
+Professional, transfer from student achiever to Professional ,2021/Feb/20 19:20,-5673
+Student Achiever,Deposit,2022/Jul/06 18:07,+80
+Student Achiever,Deposit,2022/Jul/06 18:07,+600
+Student Achiever,Deposit,2022/Jul/06 18:07,+70
+Student Achiever,Deposit,2022/Jul/06 10:14,+400
+Student Achiever,Deposit,2022/Jul/06 10:07,+345
+Student Achiever,Deposit,2022/Jul/06 10:07,+50
+Student Achiever,Deposit,2022/Jul/06 10:07,+50
+Student Achiever,Deposit,2022/Jul/06 10:05,+50
+Student Achiever,Deposit,2022/Jul/06 18:42,+40
+Student Achiever,Deposit,2022/Jul/06 18:07,+90
+Student Achiever,Deposit,2022/Jul/06 18:07,+600
+Student Achiever, transfer from student achiever to Professional,2022/Jan/2012 08:42,-5673
 Student Achiever, Ubereats purchase,2021/Nov/13 13:57,-150
+Student Achiever, transfer to student achiever from Professional,2021/Mar/01 12:04,+3000
 *
 Professional
-2560.7
+4240.4697
 101023456067
 Student Achiever
-3340.5
+5715.56
 101023499375

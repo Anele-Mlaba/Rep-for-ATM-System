@@ -47,7 +47,7 @@ public class MainMenuPanel extends JPanel {
 		logOutButton.addActionListener((e)->new LoginPanel(true));
 		
 		JButton myInfoButton = new JButton("My info");
-		myInfoButton.addActionListener((e)-> new MyInfo());
+		myInfoButton.addActionListener((e)-> new MyInfoPanel());
 		//-------------------------------------------------------end------------------
 		
 		//---- adding every button to its relevant panel------ start------
@@ -66,7 +66,7 @@ public class MainMenuPanel extends JPanel {
 		//------END ------------------------------------------------------
 		
 		//draw this Panel to the frame
-		MyFrame.frame.drawFrame(this);	
+		MainFrame.frame.drawFrame(this);	
 	}
 	
 	

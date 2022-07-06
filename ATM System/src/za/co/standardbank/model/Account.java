@@ -1,5 +1,6 @@
 package za.co.standardbank.model;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Account {
 	protected String accountName;
@@ -14,6 +15,7 @@ public class Account {
 		this.accountNo = accountNo;
 		this.balance = balance;
 		this.transactions = transactions;
+		this.sortTransactions();
 	}
 	
 	public ArrayList<Transaction> getTransactions()
@@ -62,5 +64,11 @@ public class Account {
 	public String toString()
 	{
 		return accountName+" "+accountNo+" "+balance+"\n";
+	}
+	
+	public void sortTransactions()
+	{
+		Collections.sort(transactions);
+		Collections.reverse(transactions);
 	}
 }

@@ -41,7 +41,7 @@ public class LoginPanel extends JPanel {
 	public LoginPanel(Boolean LoggedOut)
 	{	
 		initialize();
-		MyFrame.frame.drawFrame(this);
+		MainFrame.frame.drawFrame(this);
 	}
 	
 	// initializes the panel
@@ -130,7 +130,6 @@ public class LoginPanel extends JPanel {
 	//used by login button to write errors
 	private void writeError()
 	{
-		System.out.print("here");
 		errorLabel.setText("Incorrect pin or invalid ID");
 		errorLabel.setForeground(Color.red);
 		repaint();

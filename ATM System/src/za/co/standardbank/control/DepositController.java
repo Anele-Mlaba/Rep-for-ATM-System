@@ -75,10 +75,13 @@ public class DepositController {
 	{
 		acc.setBalance(acc.getBalance()+amount);	
 		ArrayList<Transaction> transactions = acc.getTransactions();
-		String date = new SimpleDateFormat("yyyy/MMM/dd HH:MM").format(Calendar.getInstance().getTime());
+		String date = new SimpleDateFormat("yyyy/MMM/dd HH:mm").format(Calendar.getInstance().getTime());
+		
+		System.out.println(new SimpleDateFormat("yyyy/MMM/dd HH:mm").format(Calendar.getInstance().getTime()));
+		
 		transactions.add(new Transaction(date, "Deposit","+"+amount));
 		acc.setTransactions(transactions);			
-			
+		acc.sortTransactions();
 		return acc;
 	}
 	

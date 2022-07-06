@@ -7,7 +7,7 @@ public class PayBeneficiaryPanel extends JPanel {
 	public PayBeneficiaryPanel()
 	{
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		add(MyFrame.frame.getMainMenuButtonPanel());
-		MyFrame.frame.drawFrame(this);
+		add(MainFrame.frame.getMainMenuButtonPanel());
+		MainFrame.frame.drawFrame(this);
 	}
 }

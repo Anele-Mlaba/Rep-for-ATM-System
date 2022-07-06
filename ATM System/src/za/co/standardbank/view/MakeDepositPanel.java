@@ -93,7 +93,7 @@ public class MakeDepositPanel extends JPanel {
 		//---------------------------------------------------------------end---------------
 		
 		//--------------adding all the panels to this panel------ start--------------------------
-		add(MyFrame.frame.getMainMenuButtonPanel());
+		add(MainFrame.frame.getMainMenuButtonPanel());
 		add(new JPanel()); // added to center the contents of this panel
 		add(errorPanel);
 		
@@ -111,7 +111,7 @@ public class MakeDepositPanel extends JPanel {
 		
 		
 		
-		MyFrame.frame.drawFrame(this);	//draw this Panel to the frame
+		MainFrame.frame.drawFrame(this);	//draw this Panel to the frame
 	}
 	
 	class depositButtonAction implements ActionListener
@@ -127,12 +127,12 @@ public class MakeDepositPanel extends JPanel {
 				if(((String)accountComboBox.getSelectedItem()).equals("Professional"))
 				{
 					String message = "Deposit Successful\n new Balance is R";
-					JOptionPane.showMessageDialog(MyFrame.frame,message);					
+					JOptionPane.showMessageDialog(MainFrame.frame,message);					
 				}
 				else if(((String)accountComboBox.getSelectedItem()).equals("Student Achiever"))
 				{
 					String message = "Deposit Successful\nnew Balance is R";
-					JOptionPane.showMessageDialog(MyFrame.frame,message);					
+					JOptionPane.showMessageDialog(MainFrame.frame,message);					
 				}
 			}	
 			amountTextField.setText("");

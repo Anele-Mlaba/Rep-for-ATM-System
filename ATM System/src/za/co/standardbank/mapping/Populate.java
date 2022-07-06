@@ -1,14 +1,21 @@
 package za.co.standardbank.mapping;
-import java.io.File;
-import java.io.FileNotFoundException;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import za.co.standardbank.model.Account;
 import za.co.standardbank.model.Customer;
@@ -18,42 +25,44 @@ import za.co.standardbank.model.StudentAchiever;
 import za.co.standardbank.model.Transaction;
 
 public class Populate {
-	 LinkedList<String> data = new LinkedList<>();
-	 Map<Transaction, String> transactions = new HashMap<>();
+	 private List<String> customerDataFromFile = new LinkedList<>();
+	 private Map<Transaction, String> transactions = new HashMap<>();
 		
-	public void readFromFile(Scanner scan)
+	public void readFromFileToList(BufferedReader reader) throws IOException
 	{
-		while(scan.hasNextLine())
+		customerDataFromFile =(LinkedList<String>) reader.lines().collect(Collectors.toCollection(LinkedList::new));
+	}
+	
+	public void test()
+	{
+		for(String x: customerDataFromFile)
 		{
-			data.add(scan.nextLine());
-			
+			System.out.println(x);
 		}
 	}
 	
 	public PersonalInfo personalInfo()
-	{
-		
-		
-		String idNo = data.pollFirst();
-		String name = data.pollFirst();
-		String surname = data.pollFirst();
-		String gender = data.pollFirst();
+	{	
+		String idNo = ((LinkedList<String>)customerDataFromFile).pollFirst();
+		String name = ((LinkedList<String>)customerDataFromFile).pollFirst();
+		String surname = ((LinkedList<String>)customerDataFromFile).pollFirst();
+		String gender = ((LinkedList<String>)customerDataFromFile).pollFirst();
 		Date dob = new Date();
 		try {
-			 dob = new SimpleDateFormat("mm/dd/yyyy").parse(data.pollFirst());
+			 dob = new SimpleDateFormat("mm/dd/yyyy").parse(((LinkedList<String>)customerDataFromFile).pollFirst());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		String email = data.pollFirst();
-		String phoneNumber = data.pollFirst();
-		String address = data.pollFirst();
+		String email = ((LinkedList<String>)customerDataFromFile).pollFirst();
+		String phoneNumber = ((LinkedList<String>)customerDataFromFile).pollFirst();
+		String address = ((LinkedList<String>)customerDataFromFile).pollFirst();
 		
 		return new PersonalInfo(idNo, name, surname, gender, dob, email, phoneNumber, address);
 	}
 	
 	public void transactions()
 	{
-		String trans = data.pollFirst();
+		String trans = ((LinkedList<String>)customerDataFromFile).pollFirst();
 		while(!trans.equals("*"))
 		{
 			String[] temp = trans.split(",");
@@ -64,7 +73,7 @@ public class Populate {
 			String amount = temp[3];
 			
 			transactions.put(new Transaction(date, type, amount), accountName);			
-			trans = data.pollFirst();
+			trans = ((LinkedList<String>)customerDataFromFile).pollFirst();
 		}
 	}
 	
@@ -88,17 +97,16 @@ public class Populate {
 			}
 		}
 		
-		String profName = data.pollFirst();
-		float profBalance = Float.parseFloat(data.pollFirst());
-		String profAccountNo = data.pollFirst();
+		String profName = ((LinkedList<String>)customerDataFromFile).pollFirst();
+		float profBalance = Float.parseFloat(((LinkedList<String>)customerDataFromFile).pollFirst());
+		String profAccountNo = ((LinkedList<String>)customerDataFromFile).pollFirst();
 		
-		String stdName = data.pollFirst();
-		float stdBalance = Float.parseFloat(data.pollFirst());
-		String stdAccountNo = data.pollFirst();
+		String stdName = ((LinkedList<String>)customerDataFromFile).pollFirst();
+		float stdBalance = Float.parseFloat(((LinkedList<String>)customerDataFromFile).pollFirst());
+		String stdAccountNo = ((LinkedList<String>)customerDataFromFile).pollFirst();
 		
 		accounts.add(new Professional(profName, profAccountNo, profBalance, profTrans));
 		accounts.add(new StudentAchiever(stdName, stdAccountNo, stdBalance, stdTrans));
-		System.out.println(accounts);
 		return accounts;
 	}
 	
@@ -110,22 +118,27 @@ public class Populate {
 	public String pin()
 	{
 			
-		return data.pollFirst();
+		return ((LinkedList<String>)customerDataFromFile).pollFirst();
 	}
 	
 	public static boolean populate(String fileName)
 	{	
-		File file = new File(fileName.trim());
-		Scanner scan;
-		try
+		if(Files.exists(Paths.get(fileName)))
 		{
-			scan = new Scanner(file);
-			Populate populate = new Populate();
-			populate.readFromFile(scan);
-			populate.customer();
-			return true;		
-		} 
-		catch (FileNotFoundException e)
+			try(BufferedReader reader = Files.newBufferedReader(Paths.get(fileName)))
+			{
+				Populate populate = new Populate();
+				populate.readFromFileToList(reader);
+				populate.customer();
+				return true;
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+				return false;
+			}	
+		}
+		else
 		{
 			return false;
 		}
