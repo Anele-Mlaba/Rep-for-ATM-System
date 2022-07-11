@@ -7,30 +7,47 @@ Female
 shumbalexis2@gmail.com
 0633286166
 Free State, Petrus Steyn, 227 Oranje St
+Professional,Charge,2022/Jul/11 03:40,-12.5
+Professional,Withdrawal,2022/Jul/11 03:40,-60
+Professional,Charge,2022/Jul/11 03:19,-12.5
+Professional,Withdrawal,2022/Jul/11 03:19,-610
+Professional,Deposit,2022/Jul/11 03:04,+60
+Professional,Charge,2022/Jul/11 03:01,-12.5
+Professional,Withdrawal,2022/Jul/11 03:01,-60
+Professional,Charge,2022/Jul/11 02:48,-12.5
+Professional,Withdrawal,2022/Jul/11 02:48,-500
+Professional,Withdrawal,2022/Jul/11 02:28,-50
+Professional,Charge,2022/Jul/11 02:28,-12.5
+Professional,Deposit,2022/Jul/06 18:46,+150
+Professional,Deposit,2022/Jul/06 11:07,+500
 Professional,Deposit,2022/Jul/06 11:07,+1000
 Professional,Deposit,2022/Jul/06 11:07,+250
-Professional,Deposit,2022/Jul/06 11:07,+500
-Professional,Deposit,2022/Jul/06 18:46,+150
 Professional, transfer to student achiever from Professional ,2021/Apr/21 19:00,+3000
 Professional, transfer from student achiever to Professional ,2021/Feb/20 19:20,-5673
+Student Achiever,Withdrawal,2022/Jul/11 03:26,-60
+Student Achiever,Charge,2022/Jul/11 03:26,-7.5
+Student Achiever,Charge,2022/Jul/11 03:24,-7.5
+Student Achiever,Withdrawal,2022/Jul/11 03:24,-70
+Student Achiever,Withdrawal,2022/Jul/11 02:29,-100
+Student Achiever,Charge,2022/Jul/11 02:29,-7.5
+Student Achiever,Deposit,2022/Jul/06 18:42,+40
+Student Achiever,Deposit,2022/Jul/06 18:07,+70
+Student Achiever,Deposit,2022/Jul/06 18:07,+90
 Student Achiever,Deposit,2022/Jul/06 18:07,+80
 Student Achiever,Deposit,2022/Jul/06 18:07,+600
-Student Achiever,Deposit,2022/Jul/06 18:07,+70
+Student Achiever,Deposit,2022/Jul/06 18:07,+600
 Student Achiever,Deposit,2022/Jul/06 10:14,+400
+Student Achiever,Deposit,2022/Jul/06 10:07,+50
 Student Achiever,Deposit,2022/Jul/06 10:07,+345
 Student Achiever,Deposit,2022/Jul/06 10:07,+50
-Student Achiever,Deposit,2022/Jul/06 10:07,+50
 Student Achiever,Deposit,2022/Jul/06 10:05,+50
-Student Achiever,Deposit,2022/Jul/06 18:42,+40
-Student Achiever,Deposit,2022/Jul/06 18:07,+90
-Student Achiever,Deposit,2022/Jul/06 18:07,+600
 Student Achiever, transfer from student achiever to Professional,2022/Jan/2012 08:42,-5673
 Student Achiever, Ubereats purchase,2021/Nov/13 13:57,-150
 Student Achiever, transfer to student achiever from Professional,2021/Mar/01 12:04,+3000
 *
 Professional
-4240.4697
+2957.5
 101023456067
 Student Achiever
-5715.56
+5462.0
 101023499375

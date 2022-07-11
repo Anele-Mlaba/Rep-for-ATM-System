@@ -11,15 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import za.co.standardbank.control.ChangePinController;
+
+import za.co.standardbank.control.BalanceController;
 import za.co.standardbank.control.DepositController;
-import za.co.standardbank.model.Professional;
-import za.co.standardbank.model.StudentAchiever;
+
 
 
 public class MakeDepositPanel extends JPanel {
 	JLabel errorLabel;
-	JComboBox accountComboBox;
+	JComboBox<String> accountComboBox;
 	JTextField amountTextField;
 	int amount;
 	String account;
@@ -56,7 +56,7 @@ public class MakeDepositPanel extends JPanel {
 		
 		accountLabel = new JLabel("Account");
 		
-		accountComboBox = new JComboBox();
+		accountComboBox = new JComboBox<>();
 		accountComboBox.addItem("");
 		accountComboBox.addItem("Professional");
 		accountComboBox.addItem("Student Achiever");
@@ -126,12 +126,12 @@ public class MakeDepositPanel extends JPanel {
 			{
 				if(((String)accountComboBox.getSelectedItem()).equals("Professional"))
 				{
-					String message = "Deposit Successful\n new Balance is R";
+					String message = "Deposit Successful\n new Balance is R"+BalanceController.getBalance("Professional");
 					JOptionPane.showMessageDialog(MainFrame.frame,message);					
 				}
 				else if(((String)accountComboBox.getSelectedItem()).equals("Student Achiever"))
 				{
-					String message = "Deposit Successful\nnew Balance is R";
+					String message = "Deposit Successful\nnew Balance is R"+BalanceController.getBalance("StudentAchiever");
 					JOptionPane.showMessageDialog(MainFrame.frame,message);					
 				}
 			}	

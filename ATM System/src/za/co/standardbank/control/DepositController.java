@@ -10,30 +10,19 @@ import za.co.standardbank.model.Customer;
 import za.co.standardbank.model.Professional;
 import za.co.standardbank.model.StudentAchiever;
 import za.co.standardbank.model.Transaction;
+import za.co.standardbank.util.UserInputValidations;
 
 public class DepositController {
 	
 	public static String makeDeposit(String amount, String account)
 	{
-		if(amount.equals("0"))
-		{	
-			return "You can't deposit R0";
-		}
-		else if(amount.contains("."))
+		String errorMessageForAmount = UserInputValidations.validateAmountInput(amount);
+		if(errorMessageForAmount.equals(""))
 		{
-			return "Make sure your amount does not contain decimals";
-		}
-		
-		else 
-		{
-
-			try
+			String errorMessageForAccount = UserInputValidations.validateAccountInput(account);
+			if(errorMessageForAccount.equals(""))
 			{
 				int parsedAmount = Integer.parseInt(amount.trim());
-
-				if(account.length() == 0)
-					return "Make sure you choose an account!";
-				
 				ArrayList<? super Account> accounts = Customer.customer.getAccounts();
 				
 				if(account.equals("Professional"))
@@ -50,25 +39,18 @@ public class DepositController {
 				Customer.customer.setAccounts(accounts);
 				Collect.collect();  // updates the file after the deposit has been made
 				Populate.populate(Customer.fileName);
-				
-				return "";
-						
 			}
-			
-			catch(NumberFormatException f)
+			else
 			{
-				if(amount.trim().equals(""))
-				{
-					return "Amount field can't be empty!";
-				}
-				else
-				{
-					return "Make sure your amount is numeric";
-				}					
+				return errorMessageForAccount;
 			}
-		}		
+		}
+		else
+		{
+			return errorMessageForAmount;
+		}
 		
-		
+		return "";				
 	}
 	
 	private  static <T extends Account> T  completeDeposit(T acc, int amount)

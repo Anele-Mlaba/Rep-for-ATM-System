@@ -35,7 +35,6 @@ public class Transaction implements Comparable<Transaction> {
 	public int compareTo(Transaction other)
 	{
 		int returnedInteger = 0;
-		//System.out.println(this.date);
 		List<String> monthsInAYear = new ArrayList<>();
 		monthsInAYear.add(""); monthsInAYear.add("Jan");monthsInAYear.add("Feb"); monthsInAYear.add("Mar"); 
 		monthsInAYear.add("Apr"); monthsInAYear.add("May"); monthsInAYear.add("Jun"); monthsInAYear.add("Jul");
@@ -56,7 +55,7 @@ public class Transaction implements Comparable<Transaction> {
 		int thisMonth = monthsInAYear.indexOf(thisDateWithoutTime[1]);
 		int otherMonth = monthsInAYear.indexOf(otherDateWithoutTime[1]);
 		
-		int thisDay = Integer.parseInt(otherDateWithoutTime[2]);
+		int thisDay = Integer.parseInt(thisDateWithoutTime[2]);
 		int otherDay = Integer.parseInt(otherDateWithoutTime[2]);
 		
 		int thisHour = Integer.parseInt(thisTimeOnly[0]);
@@ -73,22 +72,26 @@ public class Transaction implements Comparable<Transaction> {
 				{
 					if(thisHour == otherHour)
 					{
-						if(thisMin == otherMin)
+						if(thisMin == otherMin) 
 							returnedInteger = 0;
 						else if(thisMin > otherMin)
 							returnedInteger = 1;
 						else
 							returnedInteger = -1;
 					}
+					else if(thisHour > otherHour)
+						return 1;
+					else if(thisHour < otherHour)
+						return -1;
 				}
 				else if (thisDay > otherDay)
 					returnedInteger = 1;
-				else
+				else if (thisDay < otherDay)
 					returnedInteger =-1;	
 			}
 			else if(thisMonth > otherMonth)
 				returnedInteger = 1;
-			else
+			else if(thisMonth < otherMonth)
 				returnedInteger = -1;
 		}
 		else if(thisYear > otherYear)
@@ -98,5 +101,7 @@ public class Transaction implements Comparable<Transaction> {
 		
 		return returnedInteger;
 	}
+	
+	
 		
 }
