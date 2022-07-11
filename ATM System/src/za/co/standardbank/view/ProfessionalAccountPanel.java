@@ -1,6 +1,8 @@
 package za.co.standardbank.view;
 
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +13,18 @@ import javax.swing.JPanel;
 
 import za.co.standardbank.control.BalanceController;
 import za.co.standardbank.control.TransactionsController;
+import za.co.standardbank.util.OutputFormatting;
 
 public class ProfessionalAccountPanel extends JPanel {
 	
 	private static List<JLabel> transactionsLabels;
 	private static int startingFromTransaction = 0;
+	private JButton olderButton;
+	private JButton newerButton;
+	private boolean isOlderButtonDisabled = false;
+	private boolean isNewerButtonDisabled = false;
+	
+	
 	public  ProfessionalAccountPanel()
 	{
 		JPanel olderandNewerButtonPanel = new JPanel();
@@ -31,8 +40,11 @@ public class ProfessionalAccountPanel extends JPanel {
 		for(int i = 0; i<16; i++)
 			transactionsLabels.add(new JLabel("no transactions to Show"));
 		
-		JButton newerButton = new JButton("Newer Transactions");
-		JButton olderButton = new JButton("Older Transactions");
+		newerButton = new JButton("Newer Transactions");
+		newerButton.addActionListener(new NewerTransactionButtonAction());
+		
+		olderButton = new JButton("Older Transactions");
+		olderButton.addActionListener(new OlderTransactionButtonAction());
 		
 		olderandNewerButtonPanel.add(newerButton);
 		olderandNewerButtonPanel.add(olderButton);
@@ -61,7 +73,67 @@ public class ProfessionalAccountPanel extends JPanel {
 		for(JLabel transactionLabel : transactionsLabels)
 		{
 			transactionLabel.setText(transactionsList.get(i));
+			transactionLabel = OutputFormatting.formatTransactionLabel(transactionLabel);
 			i++;
+		}
+	}
+	
+	
+	private class NewerTransactionButtonAction implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			if(startingFromTransaction -16 >= 0)
+			{
+				startingFromTransaction -= 16;
+				
+				ProfessionalAccountPanel.mapTransactions(TransactionsController.
+						getTransactions(ProfessionalAccountPanel.startingFromTransaction, "Professional"));
+				
+				if(isOlderButtonDisabled)
+				{
+					olderButton.enable();
+					isOlderButtonDisabled = false;					
+				}
+				
+				repaint();	
+			}
+			else
+			{
+				newerButton.disable();
+				isNewerButtonDisabled = true;
+			}					
+		}
+	}
+	
+	private class OlderTransactionButtonAction implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			startingFromTransaction += 16;
+			
+			List<String> transactionsList = TransactionsController.
+					getTransactions(ProfessionalAccountPanel.startingFromTransaction, "Professional");
+			if(transactionsList.size() == 0)
+			{
+				olderButton.disable();
+				isOlderButtonDisabled = true;
+				startingFromTransaction -= 16;
+			}
+			else
+			{
+				if(isNewerButtonDisabled)
+				{
+					newerButton.enable();
+					isNewerButtonDisabled = false;					
+				}
+					
+				ProfessionalAccountPanel.mapTransactions(transactionsList);
+				repaint();				
+			}			
 		}
 	}
 }
