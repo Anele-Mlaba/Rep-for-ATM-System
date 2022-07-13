@@ -18,15 +18,6 @@ public class Customer {
 		customer = this;
 	}
 	
-	/*public Customer getCustomer()
-	{
-		return new Customer(pin, personalInfo, accounts);
-	}
-	
-	public void setCustomer(Customer customer)
-	{
-		this.customer = customer;
-	}*/
 	public String getPin()
 	{
 		return pin;
@@ -53,6 +44,14 @@ public class Customer {
 	public PersonalInfo getPersonalInfo() {
 
 		return personalInfo.copy();
+	}
+
+	public void setAccount(Account account) {
+		if(account.getAccountName().equals("Professional"))
+			accounts.set(0, account);
+		else
+			accounts.set(1, account);
+		
 	}
 	
 }

@@ -2,7 +2,7 @@ package za.co.standardbank.atm.model;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Account {
+public abstract class Account {
 	protected String accountName;
 	protected String accountNo;
 	protected float balance;
@@ -71,4 +71,6 @@ public class Account {
 		Collections.sort(transactions);
 		Collections.reverse(transactions);
 	}
+	
+	public abstract float getWithdrawalChargeAmount();
 }

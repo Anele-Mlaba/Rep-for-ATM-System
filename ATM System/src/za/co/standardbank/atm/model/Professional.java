@@ -2,6 +2,9 @@ package za.co.standardbank.atm.model;
 import java.util.ArrayList;
 
 public class Professional extends Account {
+	
+	private final float WITHDRAWAL_CHARGE = 12.50f;
+	
 	public Professional(String accountName, String accountNo, float balance, 
 			ArrayList<Transaction> transactions)
 	{
@@ -23,5 +26,10 @@ public class Professional extends Account {
 	public Professional copy()
 	{
 		return new Professional(accountName, accountNo, balance, transactions);
-	}	
+	}
+	
+	public float getWithdrawalChargeAmount()
+	{
+		return WITHDRAWAL_CHARGE;
+	}
 }
