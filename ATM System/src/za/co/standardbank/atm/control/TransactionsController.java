@@ -11,8 +11,8 @@ public class TransactionsController {
 	public final static int TRANSACTIONS_PER_PAGE = 16;
 	
 	/*
-	 * this method returns a list of strings with the size equal to the TRANSACTIONS_PER_PAGE constant 
-	 *  it can also return a list of strings with the size of 0, which means there are 0 transactions available
+	 *  returns a list<String> of transactions with the size equal to the TRANSACTIONS_PER_PAGE constant 
+	 *  it can also return a list<String> of strings with the size of 0, which means there are 0 transactions available
 	 *   starting from the integer the coder specified in the parameters
 	 * 
 	 * if the transactions starting from the int the coder specified are less than TRANSACTIONS_PER_PAGE

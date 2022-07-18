@@ -6,8 +6,10 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import za.co.standardbank.atm.model.Account;
+import za.co.standardbank.atm.model.Beneficiary;
 import za.co.standardbank.atm.model.Customer;
 import za.co.standardbank.atm.model.PersonalInfo;
 import za.co.standardbank.atm.model.Professional;
@@ -51,6 +53,17 @@ public class Collect {
 		CustomerDataFromModels.add("*");
 	}
 	
+	private static void beneficiaries() 
+	{
+		List<Beneficiary> ben = Customer.customer.getBeneficiaries();
+		
+		for(Beneficiary ben1 : ben )
+		{
+			CustomerDataFromModels.add(ben1.toString());
+		}		
+	}
+	
+	
 	public static void accounts()
 	{
 		ArrayList<? super Account> accounts = Customer.customer.getAccounts();
@@ -78,22 +91,15 @@ public class Collect {
 		CustomerDataFromModels.clear();
 	}
 	
-	
 	public static boolean collect()
 	{
 		Collect.pin();
 		Collect.personalInfo();
 		Collect.transactions();
 		Collect.accounts();
+		Collect.beneficiaries();
 		Collect.writeToFile();
 		return true;
 	}
 	
-	public static void test()
-	{
-		for(String x: CustomerDataFromModels)
-		{
-			System.out.println(x);
-		}
-	}
 }

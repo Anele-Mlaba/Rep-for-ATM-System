@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import za.co.standardbank.atm.model.Account;
+import za.co.standardbank.atm.model.Beneficiary;
 import za.co.standardbank.atm.model.Customer;
 import za.co.standardbank.atm.model.PersonalInfo;
 import za.co.standardbank.atm.model.Professional;
@@ -30,16 +31,16 @@ public class Populate {
 		
 	public void readFromFileToList(BufferedReader reader) throws IOException
 	{
-		customerDataFromFile =(LinkedList<String>) reader.lines().collect(Collectors.toCollection(LinkedList::new));
+		customerDataFromFile =(LinkedList<String>) reader.lines()
+				.collect(Collectors.toCollection(LinkedList::new));
 	}
 	
-	public void test()
+	public String pin()
 	{
-		for(String x: customerDataFromFile)
-		{
-			System.out.println(x);
-		}
+			
+		return ((LinkedList<String>)customerDataFromFile).pollFirst();
 	}
+	
 	
 	public PersonalInfo personalInfo()
 	{	
@@ -76,7 +77,7 @@ public class Populate {
 			trans = ((LinkedList<String>)customerDataFromFile).pollFirst();
 		}
 	}
-	
+		
 	public ArrayList<? super Account> accounts()
 	{
 		transactions();
@@ -110,15 +111,30 @@ public class Populate {
 		return accounts;
 	}
 	
-	public void customer()
+	public List<Beneficiary> beneficiaries()
 	{
-		new Customer(pin(), personalInfo(), accounts());
+		List<Beneficiary> beneficiaries = new ArrayList<>();
+		String ben = ((LinkedList<String>)customerDataFromFile).pollFirst();
+		do
+		{
+			String[] temp = ben.split(",");
+			
+			String benName = temp[0];
+			String benAccountNumber = temp[1];
+			String benBankName = temp[2];
+			
+			beneficiaries.add(new Beneficiary(benName, benAccountNumber, benBankName));			
+			ben = ((LinkedList<String>)customerDataFromFile).pollFirst();
+		}
+		while(ben != null);
+		
+		System.out.println(beneficiaries);
+		return beneficiaries;
 	}
 	
-	public String pin()
+	public void customer()
 	{
-			
-		return ((LinkedList<String>)customerDataFromFile).pollFirst();
+		new Customer(pin(), personalInfo(),accounts(), beneficiaries());
 	}
 	
 	public static boolean populate(String fileName)

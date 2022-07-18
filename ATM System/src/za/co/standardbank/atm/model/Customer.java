@@ -1,20 +1,25 @@
 package za.co.standardbank.atm.model;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Customer {
 	private String pin;
 	private PersonalInfo personalInfo;
 	private ArrayList<? super Account> accounts;
+	private List<Beneficiary> beneficiaries;
 	public static Customer customer;
 	public static String fileName = "";
 	
 	
 	
-	public Customer(String pin, PersonalInfo personalInfo, ArrayList<? super Account> accounts)
+	public Customer(String pin, PersonalInfo personalInfo,
+			 ArrayList<? super Account> accounts,  List<Beneficiary> beneficiaries)
 	{
 		this.pin = pin;
 		this.personalInfo = personalInfo;
 		this.accounts = accounts;
+		this.beneficiaries = beneficiaries;
 		customer = this;
 	}
 	
@@ -52,6 +57,13 @@ public class Customer {
 		else
 			accounts.set(1, account);
 		
+	}
+	
+	public List<Beneficiary> getBeneficiaries()
+	{
+		return beneficiaries.size() == 0? new ArrayList<>(): beneficiaries.stream()
+																	.collect(Collectors.toList());
+	
 	}
 	
 }
