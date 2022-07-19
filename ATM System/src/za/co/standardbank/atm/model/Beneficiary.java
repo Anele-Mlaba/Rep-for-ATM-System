@@ -2,11 +2,14 @@ package za.co.standardbank.atm.model;
 
 public class Beneficiary {
 	private String bankName, accountNumber, benName;
+	private int useFrequency;
 	public Beneficiary(String benName, String bankName, String accountNumber)
 	{
 		this.setBankName(bankName);
 		this.setAccountNumber(accountNumber);
 		this.setBenName(benName);
+		setUseFrequency(0);
+		
 	}
 	public String getBankName() {
 		return bankName;
@@ -30,5 +33,11 @@ public class Beneficiary {
 	public String toString()
 	{
 		return benName+","+bankName+","+accountNumber;
+	}
+	public int getUseFrequency() {
+		return useFrequency;
+	}
+	public void setUseFrequency(int useFrequency) {
+		this.useFrequency = useFrequency;
 	}
 }

@@ -38,7 +38,7 @@ public class MainMenuPanel extends JPanel {
 		makeDepositButton.addActionListener((e)->new MakeDepositPanel());
 		
 		JButton payBeneficiaryButton = new JButton("Pay a Beneficiary");
-		payBeneficiaryButton.addActionListener((e)->new PayBeneficiaryPanel());
+		payBeneficiaryButton.addActionListener((e)->new BeneficiaryPanel());
 		
 		JButton accountsButton = new JButton("Accounts");
 		accountsButton.addActionListener((e)->new AccountsPanel());

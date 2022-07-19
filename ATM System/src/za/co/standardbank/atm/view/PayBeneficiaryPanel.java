@@ -2,119 +2,145 @@ package za.co.standardbank.atm.view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import za.co.standardbank.atm.control.BeneficiaryController;
 
-public class PayBeneficiaryPanel extends JPanel {
-	
-	JPanel bensPanel;
-	JTextField searchBenTextField;
-	JButton searchBenButton;
-	JButton addBenButton;
-	JPanel searchPanel;
+
+public class PayBeneficiaryPanel extends JPanel{
+	JLabel errorLabel;
+	JComboBox<String> accountComboBox;
+	JTextField amountTextField;
+	int amount;
+	String account;
+	JLabel amountLabel;
+	JPanel userIDPanel;
+	JPanel pinPanel;
+	JPanel loginButtonPanel;
+	JPanel errorPanel;
+	JLabel accountLabel;
+	JButton payButton;
+	JPanel leftUp;
+	JPanel rightUp;
+	JPanel leftDown;
+	JPanel rightDown;
+	JButton benPanelButton;
 	
 	public PayBeneficiaryPanel()
 	{
-		searchBenTextField = new JTextField(30);
-		
-		searchBenButton = new JButton("Search");
-		searchBenButton.addActionListener(new searchBenButtonActionListener());
-		
-		addBenButton = new JButton("Add Beneficiary");
-		
-		bensPanel = new JPanel();
-		
-		bensPanel.setLayout(new BoxLayout(bensPanel, BoxLayout.Y_AXIS));
-		
-		searchPanel = new JPanel();
-		searchPanel.setLayout(new FlowLayout(3,3,3));
-		searchPanel.setSize(400, 5);
-		
-		searchPanel.add(searchBenTextField);
-		searchPanel.add(searchBenButton);
-	
-	
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		add(MainFrame.frame.getMainMenuButtonPanel());
-		add(searchPanel);
 		
-		for(String ben: BeneficiaryController.getbeneficiaries(0))
-		{
-			String[] temp = ben.split(",");
-			bensPanel.add(this.BeneficiaryPanel(temp[0], temp[1], temp[2]));
-		}
+		//creating panels that are going to be visible in this panel---------- start------
+		 userIDPanel = new JPanel();
+		 pinPanel = new JPanel();
+		 loginButtonPanel = new JPanel();
 		
-		bensPanel.setBackground(Color.red);
-		add(bensPanel);
+		userIDPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+		pinPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+		loginButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+		
+		
+		JPanel BeneficiaryButtonPanel = new JPanel();
+		BeneficiaryButtonPanel.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
+		
+		//--------------------------------------------------------------------- end-----
+		
+		// creating and populating the contents of this page------------------- start------
+		amountLabel = new JLabel("Amount");
+		amountTextField = new JTextField(13);
+		
+		accountLabel = new JLabel("Account");
+		
+		accountComboBox = new JComboBox<>();
+		accountComboBox.addItem("");
+		accountComboBox.addItem("Professional");
+		accountComboBox.addItem("Student Achiever");
+		
+		
+		payButton = new JButton("Pay");
+		
+		benPanelButton = new JButton("Beneficiaries");
+		benPanelButton.addActionListener(e -> new BeneficiaryPanel());
+		
+		BeneficiaryButtonPanel.add(benPanelButton);
+		//------------------------------------------------------------------------end--------
+		
+		//----- these panels make it easy to align the contents------- start--------
+		JPanel leftUp = new JPanel();
+		JPanel rightUp = new JPanel();
+		JPanel leftDown = new JPanel();
+		JPanel rightDown = new JPanel();
+		
+		leftUp.add(amountLabel);
+		rightUp.add(amountTextField);
+		leftDown.add(accountLabel);
+		rightDown.add(accountComboBox);
+		
+		userIDPanel.add(leftUp);
+		userIDPanel.add(rightUp);
+		pinPanel.add(leftDown);
+		pinPanel.add(rightDown);
+		loginButtonPanel.add(payButton);
+		//----------------------------------------------------------------------end---
+		
+		
+		//creating the panel for the label that displays errors----------start------------		
+		errorPanel = new JPanel();
+		errorLabel = new JLabel();
+		errorLabel.setForeground(Color.red);
+		errorPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
+		errorPanel.add(errorLabel);
+		//---------------------------------------------------------------end---------------
+		
+		JPanel benDetailsPanel = new JPanel();
+		benDetailsPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
+		benDetailsPanel.add(new JLabel(
+				BeneficiaryPanel.tempBenName
+				+" "+BeneficiaryPanel.tempAccountNumber
+				+" "+BeneficiaryPanel.tempBenBankName));
+		payButton.addActionListener
+		(
+				e->
+				{					
+					errorLabel.setText(BeneficiaryController
+							.payBen(
+									amountTextField.getText(), 
+									(String) accountComboBox.getSelectedItem(), 
+									BeneficiaryPanel.tempAccountNumber));
+					if(errorLabel.getText().length() == 0)
+					{
+						String message = BeneficiaryPanel.tempBenName+ " successfully paid";
+						JOptionPane.showMessageDialog(MainFrame.frame,message);	
+					}
+				}
+		);
+		
+		//--------------adding all the panels to this panel------ start--------------------------
+		add(BeneficiaryButtonPanel);
 		add(new JPanel());
 		add(new JPanel());
-		add(addBenButton);
-		MainFrame.frame.drawFrame(this);		
-	}
-	
-	private JPanel BeneficiaryPanel(String benName, String benBankName, String benAccountNumber)
-	{
-		JPanel benPanel = new JPanel();
-		benPanel.setLayout(new FlowLayout(3,3,3));
-		JLabel benInfoLabel = new JLabel("   "+benName+" "+" "+benBankName+" "+benAccountNumber);
+		add(benDetailsPanel); // added to center the contents of this panel
+		add(errorPanel);
+		add(userIDPanel);
+		add(pinPanel);
+		add(loginButtonPanel);
 		
-		JButton deleteBen = new JButton("Delete");
-		JButton editBen = new JButton("Edit");
-		JButton Pay = new JButton("Pay");
 		
-		benPanel.add(benInfoLabel);
-		benPanel.add(Pay);
-		benPanel.add(editBen);
-		benPanel.add(deleteBen);
-		
-		benPanel.setSize(400, 5);
-		
-		System.out.println(benName);
-		return benPanel;
-	}
-	
-	private void redraw()
-	{
-
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		add(MainFrame.frame.getMainMenuButtonPanel());
-		add(searchPanel);
+		//these panels are only added to center the contents of this panel
+		add(new JPanel());
+		add(new JPanel());
+		add(new JPanel());
+		//--------------adding all the panels to this panel------ end----------------------------
 				
-		bensPanel.setBackground(Color.red);
-		add(bensPanel);
-		add(new JPanel());
-		add(new JPanel());
-		add(addBenButton);
-		MainFrame.frame.drawFrame(this);
+		MainFrame.frame.drawFrame(this);	//draw this Panel to the frame
 	}
 	
-	private class searchBenButtonActionListener implements ActionListener
-	{
-
-		@Override
-		public void actionPerformed(ActionEvent e) 
-		{
-			bensPanel.removeAll();
-			for (String ben :
-				BeneficiaryController.getSearchedbeneficiaries(searchBenTextField.getText()))
-			{
-				String[] temp = ben.split(",");
-				bensPanel.add(BeneficiaryPanel(temp[0], temp[1], temp[2]));
-				
-			}
-			removeAll();
-			redraw();
-			
-		}
-		
-	}
 	
 }

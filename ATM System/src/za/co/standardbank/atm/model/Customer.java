@@ -66,4 +66,15 @@ public class Customer {
 	
 	}
 	
+	public void setBeneficiary(Beneficiary ben)
+	{
+		for(Beneficiary benInList: beneficiaries)
+		{
+			if(benInList.getAccountNumber().equals(ben.getAccountNumber()))
+			{
+				benInList = ben;
+				break;
+			}
+		}
+	}	
 }
