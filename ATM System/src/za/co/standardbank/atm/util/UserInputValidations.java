@@ -47,4 +47,29 @@ public class UserInputValidations {
 			return "Make sure you choose an account!";
 		return "";
 	}
+	
+	public static String validateBankNameInput(String bankName)
+	{
+		if(bankName.length() == 0)
+			return "Make sure you choose Bank!";
+		return "";
+	}
+	
+	public static String validateAccNo(String accNo)
+	{
+		String numbers = "1234567890";
+		for(int i = 0; i<accNo.length(); i++)
+		{
+			if(!numbers.contains(accNo.charAt(i)+""))
+			{
+				return "Account should only contain numbers";
+			}
+		}
+			
+		if(accNo.length()>15)
+			return "Account number too long";
+		else if ((accNo.charAt(0)+"").equals("0"))
+			return "account number does not start with 0";
+		return "";		
+	}
 }

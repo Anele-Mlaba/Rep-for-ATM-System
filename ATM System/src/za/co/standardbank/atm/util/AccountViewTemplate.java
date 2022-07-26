@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import za.co.standardbank.atm.control.BalanceController;
 import za.co.standardbank.atm.control.TransactionsController;
 import za.co.standardbank.atm.view.MainFrame;
+import za.co.standardbank.atm.view.TransferPanel;
 
 public class AccountViewTemplate {
 	
@@ -34,6 +35,12 @@ public class AccountViewTemplate {
 		startingFromTransaction = 0;
 		accountNameGlobal = accountName;
 
+		JPanel TransferPanel = new JPanel();
+		TransferPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+		JButton transferButton = new JButton("Transfer");
+		transferButton.addActionListener(e-> new TransferPanel(accountNameGlobal));
+		TransferPanel.add(transferButton);
+		
 		
 		JPanel olderandNewerButtonPanel = new JPanel();
 		olderandNewerButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
@@ -65,6 +72,7 @@ public class AccountViewTemplate {
 				getTransactions(startingFromTransaction, accountName));
 		
 		completePanelTemplate.add(MainFrame.frame.getAccountsButtonPanel());
+		completePanelTemplate.add(TransferPanel);
 		completePanelTemplate.add(new JLabel(accountName+" Account"));
 		completePanelTemplate.add(new JLabel("Balance: R"+BalanceController.getBalance(accountName)));
 		for(JLabel transaction : transactionsLabels)

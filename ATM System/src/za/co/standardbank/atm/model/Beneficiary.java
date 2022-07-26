@@ -8,7 +8,7 @@ public class Beneficiary {
 		this.setBankName(bankName);
 		this.setAccountNumber(accountNumber);
 		this.setBenName(benName);
-		setUseFrequency(0);
+		useFrequency = 0;
 		
 	}
 	public String getBankName() {

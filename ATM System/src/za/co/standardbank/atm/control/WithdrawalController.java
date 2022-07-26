@@ -52,7 +52,6 @@ public class WithdrawalController {
 					return "Insufficient funds";
 				}
 				
-				System.out.println(account.getAccountName());
 				Customer.customer.setAccount(account);
 				Collect.collect();  // updates the file after the withdrawal has been made
 				Populate.populate(Customer.fileName);

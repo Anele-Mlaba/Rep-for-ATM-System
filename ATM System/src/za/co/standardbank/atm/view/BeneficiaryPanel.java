@@ -34,6 +34,7 @@ public class BeneficiaryPanel extends JPanel {
 		clearButton.addActionListener(new clearButtonActionListener());
 		
 		addBenButton = new JButton("Add Beneficiary");
+		addBenButton.addActionListener(e -> new AddBeneficiaryPanel());
 		
 		bensPanel = new JPanel();
 		

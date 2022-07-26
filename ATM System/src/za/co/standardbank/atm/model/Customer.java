@@ -76,5 +76,10 @@ public class Customer {
 				break;
 			}
 		}
-	}	
+	}
+	
+	public void addBeneficiary(Beneficiary ben)
+	{
+		beneficiaries.add(ben);
+	}
 }

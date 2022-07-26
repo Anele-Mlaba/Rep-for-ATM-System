@@ -17,6 +17,23 @@ import za.co.standardbank.atm.util.UserInputValidations;
 public class BeneficiaryController {
 	public static final int NUM_OF_BENEFICIARIES = 8;
 	
+	public static String addBeneficiary(String benName, String benBankName, String benAccNo)
+	{
+		String message = UserInputValidations.validateBankNameInput(benBankName);
+		if(message.length() == 0)
+		{
+			message = UserInputValidations.validateAccNo(benAccNo);
+			if(message.length() == 0)
+			{
+				Customer.customer.addBeneficiary(new Beneficiary(benName, benAccNo, benBankName));
+				Collect.collect();
+				Populate.populate(Customer.fileName);
+			}
+		}
+		
+		return message;
+	}
+	
 	public static List<String> getBeneficiaries(int StartingFrom)
 	{
 		return Customer.customer.getBeneficiaries().size() == 0? new ArrayList<String>() :
