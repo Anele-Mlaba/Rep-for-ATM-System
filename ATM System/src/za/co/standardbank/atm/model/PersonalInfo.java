@@ -1,81 +1,108 @@
 package za.co.standardbank.atm.model;
-import java.util.Date;
 
+import za.co.standardbank.atm.annotations.Column;
+import za.co.standardbank.atm.annotations.PrimaryKey;
+import za.co.standardbank.atm.annotations.TableName;
+
+@TableName(name = "customer_personal_info")
 public class PersonalInfo {
-	private String idNo;
-	private String name, surname, gender, address, phoneNumber, email;
-	private Date dateOfBirth;
+	@PrimaryKey(name = "ID_No")
+	private String IdNo;
 	
-	public PersonalInfo(String idNo, String name, String surname, 
-			String gender, Date dateOfBirth, String email, String phoneNumber , String address)
+	@Column(name = "Cust_Name")
+	private String name;
+	
+	@Column(name = "Cust_Surname")
+	private String surname;
+	
+	@Column(name = "DOB")
+	private String dob;
+	
+	@Column(name = "Gender")
+	private String gender;
+	
+	@Column(name = "Address")
+	private String address;
+	
+	@Column(name = "email")
+	private String email;
+	
+	@Column(name = "cell_No")
+	private String cellNo;
+	
+	public static PersonalInfo personalInfo;
+	
+	public PersonalInfo() {}
+	
+	public PersonalInfo(String IdNo, String name, String Surname,
+			String dob, String gender, String address, String email, String cellNo)
 	{
-		this.idNo = idNo;
-		this.name = name;
-		this.surname = surname;
-		this.gender = gender;
-		this.address = address;
-		this.dateOfBirth = dateOfBirth;	
-		this.email = email;
-		this.phoneNumber = phoneNumber;
+		this.IdNo = IdNo; this.name = name; this.surname = Surname;
+		this.dob = dob; this.gender = gender; this.address = address;
+		this.email = email; this.cellNo = cellNo;
 	}
-	
-	public PersonalInfo copy()
-	{
-		return new PersonalInfo(idNo, name, surname, 
-				gender, dateOfBirth, email, phoneNumber , address);
+
+	public String getIdNo() {
+		return IdNo;
 	}
-	
-	public String getId()
-	{
-		return idNo;
+
+	public void setIdNo(String idNo) {
+		IdNo = idNo;
 	}
-	
-	public String getName()
-	{
+
+	public String getName() {
 		return name;
 	}
-	
-	public String getSurname()
-	{
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
 		return surname;
 	}
-	
-	public String getGender()
-	{
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getGender() {
 		return gender;
 	}
-	
-	public String getAddress()
-	{
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getAddress() {
 		return address;
 	}
-	
-	public Date getDOB()
-	{
-		return dateOfBirth;
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	
-	public String getEmail()
-	{
+
+	public String getEmail() {
 		return email;
 	}
-	
-	public String getPhoneNumber()
-	{
-		return phoneNumber;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
-	public String toString()
-	{
-		return   " ID no          : "+idNo
-				+"\n Name         : "+name
-				+"\n Surname      : "+surname
-				+"\n gender       : "+gender
-				+"\n address      : "+address
-				+"\n DOB          : "+dateOfBirth
-				+"\n emai         : "+email
-				+"\n phone Number :"+phoneNumber;	
-			
+
+	public String getCellNo() {
+		return cellNo;
 	}
-	
+
+	public void setCellNo(String cellNo) {
+		this.cellNo = cellNo;
+	}
 }

@@ -1,39 +1,87 @@
 package za.co.standardbank.atm.model;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-public class Transaction implements Comparable<Transaction> {
-	private String date;
+import za.co.standardbank.atm.annotations.Column;
+import za.co.standardbank.atm.annotations.PrimaryKey;
+import za.co.standardbank.atm.annotations.TableName;
+
+
+@TableName(name = "transactions")
+public class Transaction implements Comparable<Transaction>{
+	@PrimaryKey(name = "Trans_ID")
+	private int transId;
+	
+	@Column(name = "Trans_Type")
 	private String type;
+	
+	@Column(name = "Amount")
 	private String amount;
 	
-	public Transaction(String date, String type, String amount)
+	@Column(name = "Trans_Date")
+	private String date;
+	
+	@Column(name = "Acc_No")
+	private String accNo;
+	
+	public Transaction() {}
+	
+	public Transaction(String type, String amount,String date, String accNo)
 	{
-		this.date = date;
 		this.type = type;
 		this.amount = amount;
+		this.date = date;
+		this.accNo = accNo;
+	}
+
+	public int getTransId() {
+		return transId;
+	}
+
+	public void setTransId(int transId) {
+		this.transId = transId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getAccNo() {
+		return accNo;
+	}
+
+	public void setAccNo(String accNo) {
+		this.accNo = accNo;
 	}
 	
-	public Transaction copy()
-	{
-		return new Transaction(date, type, amount);
-	}
-		
 	public String toString()
 	{
 		return type+","+date+","+amount;
 	}
-	
-	public String getDate()
-	{
-		return this.date;
-	}
 
 	@Override
-	public int compareTo(Transaction other)
-	{
+	public int compareTo(Transaction other) {
 		int returnedInteger = 0;
 		List<String> monthsInAYear = new ArrayList<>();
 		monthsInAYear.add(""); monthsInAYear.add("Jan");monthsInAYear.add("Feb"); monthsInAYear.add("Mar"); 
@@ -100,8 +148,7 @@ public class Transaction implements Comparable<Transaction> {
 			returnedInteger =-1;
 		
 		return returnedInteger;
+	
 	}
 	
-	
-		
 }

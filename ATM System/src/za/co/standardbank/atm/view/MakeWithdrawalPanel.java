@@ -14,9 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import za.co.standardbank.atm.control.BalanceController;
-import za.co.standardbank.atm.control.DepositController;
 import za.co.standardbank.atm.control.WithdrawalController;
-import za.co.standardbank.atm.view.MakeDepositPanel.depositButtonAction;
 
 public class MakeWithdrawalPanel extends JPanel {
 	JLabel errorLabel;
@@ -123,16 +121,10 @@ public class MakeWithdrawalPanel extends JPanel {
 			
 			if(errorLabel.getText().length() == 0)
 			{
-				if(((String)accountComboBox.getSelectedItem()).equals("Professional"))
-				{
-					String message = "Withdrawal Successful\n new Balance is R"+BalanceController.getBalance("Professional");
+				
+					String message = "Withdrawal Successful\n new Balance is R"
+					+BalanceController.getBalance((String)accountComboBox.getSelectedItem());
 					JOptionPane.showMessageDialog(MainFrame.frame,message);					
-				}
-				else if(((String)accountComboBox.getSelectedItem()).equals("Student Achiever"))
-				{
-					String message = "withdrawal Successful\nnew Balance is R"+BalanceController.getBalance("StudentAchiever");
-					JOptionPane.showMessageDialog(MainFrame.frame,message);					
-				}
 			}	
 			
 			amountTextField.setText("");

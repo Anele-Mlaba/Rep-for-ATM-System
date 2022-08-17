@@ -1,17 +1,19 @@
 package za.co.standardbank.atm.control;
 
+import za.co.standardbank.atm.model.Account;
 import za.co.standardbank.atm.model.Customer;
-import za.co.standardbank.atm.model.Professional;
-import za.co.standardbank.atm.model.StudentAchiever;
+import za.co.standardbank.atm.orm.EntityManagerFactory;
 
 public class BalanceController {
-	public static float getBalance(String account)
+	public static float getBalance(String accountName)
 	{
-		float balance = ((StudentAchiever)(Customer.customer.getAccounts().get(1))).getBalance();
-		if(account.equals("Professional"))
-		{
-			balance = ((Professional)(Customer.customer.getAccounts().get(0))).getBalance();
-		}
-		return balance;
+		return (float) EntityManagerFactory.of(Account.class)
+				.readForeign(Account.class, Customer.customer)
+				.stream()
+				.map(object -> (Account)object)
+				.filter(account -> account.getAccountName().equals(accountName))
+				.findFirst()
+				.orElseThrow()
+				.getBalance();	
 	}	
 }

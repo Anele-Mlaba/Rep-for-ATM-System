@@ -1,76 +1,65 @@
 package za.co.standardbank.atm.model;
-import java.util.ArrayList;
-import java.util.Collections;
 
-public abstract class Account {
-	protected String accountName;
-	protected String accountNo;
-	protected float balance;
-	protected ArrayList<Transaction> transactions;
+import za.co.standardbank.atm.annotations.Column;
+import za.co.standardbank.atm.annotations.PrimaryKey;
+import za.co.standardbank.atm.annotations.TableName;
+
+@TableName(name = "accounts")
+public class Account 
+{
+	@PrimaryKey(name = "Acc_No")
+	private String accountNo;
 	
-	public Account(String accountName, String accountNo, float balance, 
-			ArrayList<Transaction> transactions)
+	@Column(name = "Acc_Name")
+	private String accountName;
+	
+	@Column(name = "Balance")
+	private float balance;
+	
+	@Column(name = "Cust_ID")
+	private String customerId;
+	
+	
+	public Account() {}
+	
+	public Account(String accountNo, String accountName, float balance, String customerId)
 	{
-		this.accountName = accountName;
 		this.accountNo = accountNo;
+		this.accountName = accountName;
 		this.balance = balance;
-		this.transactions = transactions;
-		this.sortTransactions();
+		this.customerId = customerId;
 	}
 	
-	public ArrayList<Transaction> getTransactions()
-	{
-		ArrayList<Transaction> copy = new ArrayList<>();
-		for(Transaction x: transactions)
-		{
-			copy.add(x.copy());
-		}
-		
-		return copy;
-	}
-	
-	public void setTransactions(ArrayList<Transaction> transactions)
-	{
-		this.transactions = transactions;
-	}
-	
-	public String getAccountName()
-	{
-		return accountName;
-	}
-	
-	public String getAccountNo()
+	public String getAccountNo() 
 	{
 		return accountNo;
 	}
-	
-	public float getBalance()
+	public void setAccountNo(String accountNo) 
+	{
+		this.accountNo = accountNo;
+	}
+	public String getAccountName() 
+	{
+		return accountName;
+	}
+	public void setAccountName(String accountName)
+	{
+		this.accountName = accountName;
+	}
+	public float getBalance() 
 	{
 		return balance;
 	}
-	
-	public void setBalance(float balance)
+	public void setBalance(float balance) 
 	{
 		this.balance = balance;
 	}
-	
-	public boolean makeTransfer(int amount)
+	public String getCustomerId() 
 	{
-		
-		return true;
+		return customerId;
 	}
-	
-
-	public String toString()
+	public void setCustomerId(String customer_Id) 
 	{
-		return accountName+" "+accountNo+" "+balance+"\n";
+		this.customerId = customer_Id;
 	}
-	
-	public void sortTransactions()
-	{
-		Collections.sort(transactions);
-		Collections.reverse(transactions);
-	}
-	
-	public abstract float getWithdrawalChargeAmount();
 }

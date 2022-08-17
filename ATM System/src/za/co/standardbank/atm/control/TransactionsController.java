@@ -1,10 +1,11 @@
 package za.co.standardbank.atm.control;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import za.co.standardbank.atm.model.Account;
-import za.co.standardbank.atm.model.Customer;
+import za.co.standardbank.atm.model.Transaction;
+import za.co.standardbank.atm.orm.EntityManagerFactory;
 
 
 public class TransactionsController {
@@ -21,13 +22,13 @@ public class TransactionsController {
 	public static List<String> getTransactions(int startingFrom, String accountName)
 	{
 		List<String>  transactionsFromAccount =
-				Customer.customer.getAccounts().stream()
-					.filter(account ->((Account)account).getAccountName().equals(accountName))
-					.flatMap(account -> ((Account)account).getTransactions().stream())
-					.skip(startingFrom)
-					.limit(TRANSACTIONS_PER_PAGE)
-					.map(trans -> trans.toString())
-					.collect(Collectors.toList());
+				EntityManagerFactory.of(Transaction.class).readForeign(Transaction.class, 
+						AccountController.findAccount(accountName))
+				.stream()
+				.sorted()
+				.map(obj -> ((Transaction)obj).toString())
+				.collect(Collectors.toList());
+		Collections.reverse(transactionsFromAccount);
 		
 		if(transactionsFromAccount.size() == 0)
 			return transactionsFromAccount;

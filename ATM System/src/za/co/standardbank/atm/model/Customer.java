@@ -1,85 +1,53 @@
 package za.co.standardbank.atm.model;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
+import za.co.standardbank.atm.annotations.Column;
+import za.co.standardbank.atm.annotations.PrimaryKey;
+import za.co.standardbank.atm.annotations.TableName;
+
+@TableName(name = "customers")
 public class Customer {
+	@PrimaryKey(name = "Cust_ID") 
+	private String customerId;
+	
+	@Column(name = "Pin")
 	private String pin;
-	private PersonalInfo personalInfo;
-	private ArrayList<? super Account> accounts;
-	private List<Beneficiary> beneficiaries;
+	
+	@Column(name = "ID_No")
+	private String idNo;
+	
 	public static Customer customer;
-	public static String fileName = "";
 	
+	public Customer() {}
 	
-	
-	public Customer(String pin, PersonalInfo personalInfo,
-			 ArrayList<? super Account> accounts,  List<Beneficiary> beneficiaries)
+	public Customer(String customerId, String pin, String idNo)
 	{
+		this.customerId = customerId;
 		this.pin = pin;
-		this.personalInfo = personalInfo;
-		this.accounts = accounts;
-		this.beneficiaries = beneficiaries;
-		customer = this;
+		this.idNo = idNo;
 	}
 	
-	public String getPin()
-	{
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getPin() {
 		return pin;
 	}
-	
-	public void setPin(String newPin)
-	{
-		pin = newPin;
-	}
-	
-	public ArrayList<? super Account> getAccounts()
-	{
-		ArrayList<? super Account> copy = new ArrayList<>();
-		copy.add(((Professional)this.accounts.get(0)).copy());
-		copy.add(((StudentAchiever)this.accounts.get(1)).copy());
-		return copy;
-	}
-	
-	public void setAccounts(ArrayList<? super Account> accounts)
-	{
-		this.accounts = accounts;
+
+	public void setPin(String pin) {
+		this.pin = pin;
 	}
 
-	public PersonalInfo getPersonalInfo() {
-
-		return personalInfo.copy();
+	public String getIdNo() {
+		return idNo;
 	}
 
-	public void setAccount(Account account) {
-		if(account.getAccountName().equals("Professional"))
-			accounts.set(0, account);
-		else
-			accounts.set(1, account);
-		
-	}
-	
-	public List<Beneficiary> getBeneficiaries()
+	public void setIdNo(String idNo) 
 	{
-		return beneficiaries.size() == 0? new ArrayList<>(): beneficiaries.stream()
-																	.collect(Collectors.toList());
-	
-	}
-	
-	public void setBeneficiary(Beneficiary ben)
-	{
-		for(Beneficiary benInList: beneficiaries)
-		{
-			if(benInList.getAccountNumber().equals(ben.getAccountNumber()))
-			{
-				benInList = ben;
-				break;
-			}
-		}
-	}
-	
-	public void addBeneficiary(Beneficiary ben)
-	{
-		beneficiaries.add(ben);
+		this.idNo = idNo;
 	}
 }

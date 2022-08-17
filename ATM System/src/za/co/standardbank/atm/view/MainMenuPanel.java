@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import za.co.standardbank.atm.control.LogOutController;
+
 
 
 //this class is responsible for the main menu of the system
@@ -44,7 +46,7 @@ public class MainMenuPanel extends JPanel {
 		accountsButton.addActionListener((e)->new AccountsPanel());
 		
 		JButton logOutButton = new JButton("Log out");
-		logOutButton.addActionListener((e)->new LoginPanel(true));
+		logOutButton.addActionListener((e)-> {new LoginPanel(true); LogOutController.logOut();});
 		
 		JButton myInfoButton = new JButton("My info");
 		myInfoButton.addActionListener((e)-> new MyInfoPanel());

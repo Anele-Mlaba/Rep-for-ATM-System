@@ -6,12 +6,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import za.co.standardbank.atm.mapping.Collect;
-import za.co.standardbank.atm.mapping.Populate;
 import za.co.standardbank.atm.model.Account;
 import za.co.standardbank.atm.model.Beneficiary;
 import za.co.standardbank.atm.model.Customer;
 import za.co.standardbank.atm.model.Transaction;
+import za.co.standardbank.atm.orm.EntityManagerFactory;
 import za.co.standardbank.atm.util.UserInputValidations;
 
 public class BeneficiaryController {
@@ -25,9 +24,8 @@ public class BeneficiaryController {
 			message = UserInputValidations.validateAccNo(benAccNo);
 			if(message.length() == 0)
 			{
-				Customer.customer.addBeneficiary(new Beneficiary(benName, benAccNo, benBankName));
-				Collect.collect();
-				Populate.populate(Customer.fileName);
+				EntityManagerFactory.of(Beneficiary.class)
+				.persist(new Beneficiary(benAccNo, benName, benBankName, Customer.customer.getCustomerId()));
 			}
 		}
 		
@@ -36,22 +34,26 @@ public class BeneficiaryController {
 	
 	public static List<String> getBeneficiaries(int StartingFrom)
 	{
-		return Customer.customer.getBeneficiaries().size() == 0? new ArrayList<String>() :
-			Customer.customer.getBeneficiaries().stream()
-			.map(e->e.toString())
-			.limit(NUM_OF_BENEFICIARIES)
-			.collect(Collectors.toList());
+		List<Object> beneficiaries = getBeneficiaries();
+		return beneficiaries == null? new ArrayList<String>() :beneficiaries
+				.stream()
+				.map(ben -> ((Beneficiary)ben).toString())
+				.limit(NUM_OF_BENEFICIARIES)
+				.collect(Collectors.toList());
 	}
 	
 	public static List<String> getSearchedbeneficiaries(String userInput)
 	{
-		return Customer.customer.getBeneficiaries().size() == 0? new ArrayList<String>() :
-			Customer.customer.getBeneficiaries().stream()
-			.map(e->e.toString())
-			.filter(e->e.toLowerCase().contains(userInput.toLowerCase()))
-			.limit(NUM_OF_BENEFICIARIES)
-			.collect(Collectors.toList());
+		List<Object> beneficiaries = getBeneficiaries();
+		
+		return beneficiaries == null? new ArrayList<String>() :beneficiaries
+				.stream()
+				.map(ben -> ((Beneficiary)ben).toString())
+				.filter(benString -> benString.toLowerCase().contains(userInput.toLowerCase()))
+				.limit(NUM_OF_BENEFICIARIES)
+				.collect(Collectors.toList());
 	}
+	
 	
 	public static String payBen(String amount, String accountName,String benAccountNumber)
 	{
@@ -63,52 +65,39 @@ public class BeneficiaryController {
 			if(errorMessageForAccount.equals(""))
 			{	
 				int parsedAmount = Integer.parseInt(amount.trim());
+				Account account = AccountController.findAccount(accountName);
 				
-				Account account = (Account) Customer.customer.getAccounts().stream()
-						.filter(accountInStream ->((Account)accountInStream).getAccountName().equals(accountName))
-						.findFirst()
-						.orElseThrow();
-				
-				Beneficiary ben = Customer.customer.getBeneficiaries().stream()
-						.filter(benInStream->benInStream.getAccountNumber().equals(benAccountNumber))
-						.findFirst()
-						.orElseThrow();
-				
+							
 				if(account.getBalance() - parsedAmount >= 0 )
 				{
+					String benName = ((Beneficiary)EntityManagerFactory.of(Beneficiary.class)
+							.read(Beneficiary.class,benAccountNumber)).getBenName();
+					
 					float newBalance = account.getBalance() - parsedAmount;
-					
 					account.setBalance(newBalance);	
-					ArrayList<Transaction> transactions = account.getTransactions();
-					
 					String date = new SimpleDateFormat("yyyy/MMM/dd HH:mm").format(Calendar.getInstance().getTime());
+						
+					EntityManagerFactory.of(Transaction.class)
+					.persist(new Transaction("paid to "+ benName,"-"+amount, date, account.getAccountNo()));
 					
-					transactions.add(new Transaction(date, "Paid to "+ben.getBenName(),"-"+parsedAmount));
-					account.setTransactions(transactions);			
-					account.sortTransactions();
+					EntityManagerFactory.of(Account.class).update(account);
+					
+					return "";
 				}	
 				else
-				{
-					return "Insuficient funds";
-				}
-				
-				ben.setUseFrequency(ben.getUseFrequency()+1);
-				Customer.customer.setBeneficiary(ben);
-				Customer.customer.setAccount(account);
-				Collect.collect();  // updates the file after the withdrawal has been made
-				Populate.populate(Customer.fileName);
+					return "Insuficient funds";	
 			}
 			else
-			{
-				return errorMessageForAccount;
-			}
-			
+				return errorMessageForAccount;	
 		}
 		else
-		{
-			return errorMessageForAmount;
-		}
-		
-		return "";
+			return errorMessageForAmount;	
+	}
+	
+	
+	private static List<Object> getBeneficiaries()
+	{
+		return EntityManagerFactory.of(Beneficiary.class)
+				.readForeign(Beneficiary.class, Customer.customer);
 	}
 }

@@ -1,14 +1,11 @@
 package za.co.standardbank.atm.control;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
-import za.co.standardbank.atm.mapping.Collect;
-import za.co.standardbank.atm.mapping.Populate;
 import za.co.standardbank.atm.model.Account;
-import za.co.standardbank.atm.model.Customer;
 import za.co.standardbank.atm.model.Transaction;
+import za.co.standardbank.atm.orm.EntityManagerFactory;
 import za.co.standardbank.atm.util.UserInputValidations;
 
 public class TransferController {
@@ -22,54 +19,35 @@ public class TransferController {
 			{
 				float parsedAmount = Float.parseFloat(amount.trim());
 				
-				Account accountFrom = (Account) Customer.customer.getAccounts().stream()
-						.filter(accountInStream ->((Account)accountInStream).getAccountName().equals(accountFromName))
-						.findFirst()
-						.orElseThrow();
-				
-				Account accountTo;
-				if(accountFrom.getBalance()-parsedAmount>=0)
+				if(BalanceController.getBalance(accountFromName) - parsedAmount >= 0)
 				{
-					accountTo = (Account) Customer.customer.getAccounts().stream()
-							.filter(accountInStream ->((Account)accountInStream).getAccountName().equals(accountToName))
-							.findFirst()
-							.orElseThrow();
+					Account accountFrom = AccountController.findAccount(accountFromName);		
+					Account accountTo = AccountController.findAccount(accountToName);
 					
 					accountFrom.setBalance(accountFrom.getBalance()-parsedAmount);
 					accountTo.setBalance(accountTo.getBalance()+parsedAmount);
 					
-					ArrayList<Transaction> transactionsFrom = accountFrom.getTransactions();
-					ArrayList<Transaction> transactionsTo = accountTo.getTransactions();
 					String date = new SimpleDateFormat("yyyy/MMM/dd HH:mm").format(Calendar.getInstance().getTime());
 					
-					transactionsFrom.add(new Transaction(date, "Transfer to"+accountToName,"-"+parsedAmount));
-					accountFrom.setTransactions(transactionsFrom);			
-					accountFrom.sortTransactions();
+					Transaction transTo = new Transaction("Transfer From "+accountToName, "+"+amount,date, accountTo.getAccountNo());
+					Transaction transFrom = new Transaction("Transfer to "+accountFromName, "-"+amount,date, accountFrom.getAccountNo());
 					
-					transactionsTo.add(new Transaction(date, "Transfer From"+accountFromName,"+"+parsedAmount));
-					accountTo.setTransactions(transactionsTo);			
-					accountTo.sortTransactions();
+					EntityManagerFactory.of(Account.class).update(accountFrom);
+					EntityManagerFactory.of(Account.class).update(accountTo);
+					EntityManagerFactory.of(Transaction.class).persist(transFrom);
+					EntityManagerFactory.of(Transaction.class).persist(transTo);
 					
-					
-					Customer.customer.setAccount(accountFrom);
-					Customer.customer.setAccount(accountTo);
-					Collect.collect();  // updates the file after the withdrawal has been made
-					Populate.populate(Customer.fileName);
+					return "";
 				}
+				
 				else
-				{
 					return "insufficient funds";
-				}
+				
 			}
 			else
-			{
 				return errorMessageForAccount;
-			}
 		}
 		else
-		{
 			return errorMessageForAmount;
-		}
-		return "";
 	}
 }

@@ -1,11 +1,20 @@
 package za.co.standardbank.atm.view;
 
 import java.awt.FlowLayout;
+import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+
+import za.co.standardbank.atm.annotations.TableName;
+import za.co.standardbank.atm.model.Customer;
+import za.co.standardbank.atm.orm.EntityManager;
+import za.co.standardbank.atm.orm.EntityManagerFactory;
 
 //this frame contains the whole system
 public class MainFrame extends JFrame
@@ -71,5 +80,25 @@ public class MainFrame extends JFrame
 	public static void main(String [] args) 
 	{
 		frame = new MainFrame();
-	}	
+		
+		 
+		
+		/*
+		String connectionString = "jdbc:mysql://localhost:3306/standardbankatmdb";
+		String userName = "root";
+		String password = "0633386@NE|_e";
+		try 
+		{
+			Connection conn = DriverManager.getConnection(connectionString, userName, password);
+			if (conn.isValid(2))
+				System.out.print(true);
+			else
+				System.out.print(false);
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}*/
+	}
+		
 }

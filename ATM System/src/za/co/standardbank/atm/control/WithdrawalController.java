@@ -1,14 +1,11 @@
 package za.co.standardbank.atm.control;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
-import za.co.standardbank.atm.mapping.Collect;
-import za.co.standardbank.atm.mapping.Populate;
 import za.co.standardbank.atm.model.Account;
-import za.co.standardbank.atm.model.Customer;
 import za.co.standardbank.atm.model.Transaction;
+import za.co.standardbank.atm.orm.EntityManagerFactory;
 import za.co.standardbank.atm.util.UserInputValidations;
 
 public class WithdrawalController {
@@ -25,47 +22,37 @@ public class WithdrawalController {
 			String errorMessageForAccount = UserInputValidations.validateAccountInput(accountName);
 			if(errorMessageForAccount.equals(""))
 			{			
-				int parsedAmount = Integer.parseInt(amount.trim());
-			
-				Account account = (Account) Customer.customer.getAccounts().stream()
-						.filter(accountInStream ->((Account)accountInStream).getAccountName().equals(accountName))
-						.findFirst()
-						.orElseThrow();
+				int parsedAmount = Integer.parseInt(amount.trim());			
+				Account account = AccountController.findAccount(accountName);
+				float withdrawalCharge = AccountController.getWithdrawalChargeAmount(accountName);
 				
-				if(account.getBalance() - parsedAmount-account.getWithdrawalChargeAmount() >= 0)
+				if(account.getBalance() - parsedAmount - withdrawalCharge >= 0)
 				{
-					float newBalance = Math.round((account.getBalance()-parsedAmount-account.
-							getWithdrawalChargeAmount())*100);
+					float newBalance = Math.round((account.getBalance() - parsedAmount - withdrawalCharge)*100);
 				    newBalance =newBalance / 100;
+				    
 					account.setBalance(newBalance);	
-					ArrayList<Transaction> transactions = account.getTransactions();
 					
 					String date = new SimpleDateFormat("yyyy/MMM/dd HH:mm").format(Calendar.getInstance().getTime());
 					
-					transactions.add(new Transaction(date, "Withdrawal","-"+parsedAmount));
-					transactions.add(new Transaction(date, "Charge","-"+account.getWithdrawalChargeAmount()));
-					account.setTransactions(transactions);			
-					account.sortTransactions();
+					Transaction withdrawalTrans = 
+							new Transaction("Withdrawal","-"+parsedAmount,date,account.getAccountNo());
+					Transaction withdrawalChargeTrans = 
+							new Transaction("Withdrawal charge", "-"+withdrawalCharge,date, account.getAccountNo());
+					
+					EntityManagerFactory.of(Transaction.class).persist(withdrawalTrans);
+					EntityManagerFactory.of(Transaction.class).persist(withdrawalChargeTrans);
+					EntityManagerFactory.of(Account.class).update(account);
+					
+					return "";	
 				}
 				else
-				{
 					return "Insufficient funds";
-				}
-				
-				Customer.customer.setAccount(account);
-				Collect.collect();  // updates the file after the withdrawal has been made
-				Populate.populate(Customer.fileName);
 			}
 			else
-			{
 				return errorMessageForAccount;
-			}
 		}
 		else
-		{
-			return errorMessageForAmount;
-		}
-		
-		return "";					
+			return errorMessageForAmount;				
 	}	
 }

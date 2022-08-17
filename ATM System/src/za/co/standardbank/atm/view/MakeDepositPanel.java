@@ -122,19 +122,14 @@ public class MakeDepositPanel extends JPanel {
 			errorLabel.setText(DepositController.
 					makeDeposit(amountTextField.getText(), (String)accountComboBox.getSelectedItem()));
 			errorLabel.setForeground(Color.red);
+			
 			if(errorLabel.getText().length() == 0)
 			{
-				if(((String)accountComboBox.getSelectedItem()).equals("Professional"))
-				{
-					String message = "Deposit Successful\n new Balance is R"+BalanceController.getBalance("Professional");
-					JOptionPane.showMessageDialog(MainFrame.frame,message);					
-				}
-				else if(((String)accountComboBox.getSelectedItem()).equals("Student Achiever"))
-				{
-					String message = "Deposit Successful\nnew Balance is R"+BalanceController.getBalance("StudentAchiever");
-					JOptionPane.showMessageDialog(MainFrame.frame,message);					
-				}
-			}	
+				String message = "Deposit Successful\n new Balance is R"
+									+BalanceController.getBalance((String)accountComboBox.getSelectedItem());
+				JOptionPane.showMessageDialog(MainFrame.frame,message);	
+			}
+			
 			amountTextField.setText("");
 			repaint();				
 		}		
